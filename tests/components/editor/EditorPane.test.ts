@@ -119,6 +119,16 @@ describe('EditorPane', () => {
     expect(saves()[1]).toMatchObject({ id: 'a', markdown: '# Alpha\n\nonetwo' })
   })
 
+  it('exposes flush, which saves pending edits before resolving', async () => {
+    await openNote(note('a', '# Alpha'))
+    const w = mount(EditorPane, { attachTo: document.body })
+    await flushPromises()
+    typeAtEnd(w, 'pending')
+    await (w.vm as unknown as { flush: () => Promise<void> }).flush()
+    expect(saves()).toEqual([expect.objectContaining({ id: 'a', markdown: '# Alpha\n\npending' })])
+    w.unmount()
+  })
+
   it('starts an empty note with an empty title line', async () => {
     await openNote(note('a', ''))
     const w = mount(EditorPane, { attachTo: document.body })

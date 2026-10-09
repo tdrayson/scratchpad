@@ -60,7 +60,7 @@ export function useNoteEditor(slash: SlashState) {
     const json = doc.toJSON() as JSONContent
     const md = toMarkdown(ed, json)
     if (id === loadedId) markdown.value = md
-    void save(id, JSON.stringify(json), md)
+    return save(id, JSON.stringify(json), md)
   })
 
   /**
@@ -121,25 +121,28 @@ export function useNoteEditor(slash: SlashState) {
     editor.value?.commands.focus('start')
   }
 
-  /** Saves pending edits now. */
-  function flush(): void {
-    autosave.flush()
+  /**
+   * Saves pending edits now.
+   * @return Resolves once the save has reached the backend.
+   */
+  function flush(): Promise<void> {
+    return autosave.flush()
   }
 
   /** Saves pending edits when the page is hidden. */
   function onVisibility(): void {
-    if (document.visibilityState === 'hidden') flush()
+    if (document.visibilityState === 'hidden') void flush()
   }
 
   watch(currentId, flush)
   watch(current, (note) => {
     if (!note) {
-      flush()
+      void flush()
       loadedId = null
       return
     }
     if (note.id === loadedId) return
-    flush()
+    void flush()
     show(note)
   })
   watch(
@@ -151,7 +154,7 @@ export function useNoteEditor(slash: SlashState) {
     () => {
       const old = editor.value
       if (!old) return
-      flush()
+      void flush()
       editor.value = build(old.getJSON())
       generation.value++
       old.destroy()
@@ -167,7 +170,7 @@ export function useNoteEditor(slash: SlashState) {
   })
 
   onBeforeUnmount(() => {
-    flush()
+    void flush()
     window.removeEventListener('blur', flush)
     window.removeEventListener('beforeunload', flush)
     document.removeEventListener('visibilitychange', onVisibility)

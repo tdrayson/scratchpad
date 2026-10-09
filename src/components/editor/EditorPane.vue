@@ -46,7 +46,7 @@ function copyMarkdown(): void {
 async function archiveCurrent(): Promise<void> {
   const id = currentId.value
   if (!id) return
-  flush()
+  await flush()
   await archive(id)
 }
 

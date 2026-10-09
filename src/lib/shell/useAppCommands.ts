@@ -8,14 +8,14 @@ import { openSettings } from '@/lib/windows'
 import { eventInitFor, NEW_NOTE_WITH_TEXT } from '@/lib/palette/palette'
 import { routesToToast } from '@/lib/shell/undo'
 
-type Focusable = { focus: () => void; flush?: () => void }
+type EditorHandle = { focus: () => void; flush?: () => void | Promise<void> }
 
 /**
  * Main-window commands, shared by shortcuts, the ⌘K palette, the app menu and backend pushes.
  * @param editor - The editor pane, focused after creating a note and flushed before archiving.
  * @return `run`, which executes a command by id.
  */
-export function useAppCommands(editor: Ref<Focusable | null>) {
+export function useAppCommands(editor: Ref<EditorHandle | null>) {
   const notes = useNotes()
   const { shortcuts } = useSettings()
   const { view, sidebarOpen, paletteOpen, toast } = useView()
@@ -42,6 +42,14 @@ export function useAppCommands(editor: Ref<Focusable | null>) {
     if (ok) await notes.remove(note.id)
   }
 
+  /** Archives the open note, saving pending edits first so they aren't lost or written after the archive. */
+  async function archiveCurrent(): Promise<void> {
+    const id = notes.currentId.value
+    if (view.value !== 'editor' || !id) return
+    await editor.value?.flush?.()
+    await notes.archive(id)
+  }
+
   /**
    * Switches the main pane.
    * @param next - The view to show.
@@ -53,11 +61,7 @@ export function useAppCommands(editor: Ref<Focusable | null>) {
 
   const handlers: Record<string, () => unknown> = {
     newNote: () => createAndFocus(),
-    archiveNote: () => {
-      if (view.value !== 'editor' || !notes.currentId.value) return
-      editor.value?.flush?.()
-      notes.archive(notes.currentId.value)
-    },
+    archiveNote: archiveCurrent,
     deleteNote: deleteCurrent,
     prevNote: () => notes.step(-1),
     nextNote: () => notes.step(1),

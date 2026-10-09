@@ -38,6 +38,21 @@ describe('createAutosave', () => {
     expect(write).toHaveBeenCalledTimes(2)
   })
 
+  it('flush resolves only once the write has landed', async () => {
+    let land!: () => void
+    const write = vi.fn(() => new Promise<void>((r) => (land = r)))
+    const s = createAutosave(write)
+    s.schedule('a', 1)
+    let done = false
+    const flushed = s.flush().then(() => (done = true))
+    expect(write).toHaveBeenCalledOnce()
+    await Promise.resolve()
+    expect(done).toBe(false)
+    land()
+    await flushed
+    expect(done).toBe(true)
+  })
+
   it('cancel drops the pending save', () => {
     const write = vi.fn()
     const s = createAutosave(write)

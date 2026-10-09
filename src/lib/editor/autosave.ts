@@ -1,28 +1,31 @@
 export interface Autosave<T> {
   /** Queues a save of a snapshot for a note, restarting the debounce. */
   schedule: (id: string, snapshot: T) => void
-  /** Writes any pending save now. */
-  flush: () => void
+  /** Writes any pending save now; resolves once it has landed. */
+  flush: () => Promise<void>
   /** Drops any pending save without writing it. */
   cancel: () => void
 }
 
 /**
  * Debounced saver that pins each pending snapshot to the note it came from.
- * @param write - Persists a snapshot for a note id.
+ * @param write - Persists a snapshot for a note id; may return a Promise for when it lands.
  * @param delay - Debounce in ms.
  * @return Schedule, flush and cancel controls.
  */
-export function createAutosave<T>(write: (id: string, snapshot: T) => void, delay = 400): Autosave<T> {
+export function createAutosave<T>(write: (id: string, snapshot: T) => void | Promise<void>, delay = 400): Autosave<T> {
   let pending: { id: string; snapshot: T } | null = null
   let timer: ReturnType<typeof setTimeout> | undefined
 
-  /** Writes and clears the pending snapshot, if any. */
-  function flush(): void {
+  /**
+   * Writes and clears the pending snapshot, if any.
+   * @return Resolves once the write has landed.
+   */
+  async function flush(): Promise<void> {
     clearTimeout(timer)
     const p = pending
     pending = null
-    if (p) write(p.id, p.snapshot)
+    if (p) await write(p.id, p.snapshot)
   }
 
   /**
@@ -31,10 +34,10 @@ export function createAutosave<T>(write: (id: string, snapshot: T) => void, dela
    * @param snapshot - The content to save.
    */
   function schedule(id: string, snapshot: T): void {
-    if (pending && pending.id !== id) flush()
+    if (pending && pending.id !== id) void flush()
     pending = { id, snapshot }
     clearTimeout(timer)
-    timer = setTimeout(flush, delay)
+    timer = setTimeout(() => void flush(), delay)
   }
 
   /** Drops the pending snapshot. */
