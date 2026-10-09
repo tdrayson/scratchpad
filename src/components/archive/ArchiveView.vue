@@ -76,11 +76,9 @@ async function remove(note: NoteSummary): Promise<void> {
     ok: 'Delete',
   })
   if (!ok) return
-  const back = view.value
   const hadFocus = !!listEl.value?.contains(document.activeElement)
   try {
     await notes.remove(note.id)
-    view.value = back
     showToast(`Deleted “${note.title || 'Untitled'}”`)
     if (hadFocus) select(Math.min(selected.value, list.value.length - 1))
   } catch {

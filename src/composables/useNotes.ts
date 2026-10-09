@@ -71,8 +71,17 @@ export function useNotes() {
    * @return Resolves when the note is loaded.
    */
   async function open(id: string): Promise<void> {
-    currentId.value = id
     view.value = 'editor'
+    await select(id)
+  }
+
+  /**
+   * Makes a note current without changing the view.
+   * @param id - Note id.
+   * @return Resolves when the note is loaded.
+   */
+  async function select(id: string): Promise<void> {
+    currentId.value = id
     const note = await call('getNote', { id })
     if (currentId.value === id) current.value = note
   }
@@ -128,7 +137,7 @@ export function useNotes() {
     archiveUndo.push(id)
     await refresh()
     if (currentId.value === id) {
-      if (next) await open(next)
+      if (next) await select(next)
       else ((currentId.value = null), (current.value = null))
     }
     showToast(`Archived “${title}”`, { label: 'Undo', run: () => undoArchive() })
@@ -176,7 +185,7 @@ export function useNotes() {
     await call('deleteNote', { id })
     await refresh()
     if (currentId.value === id) {
-      if (next) await open(next)
+      if (next) await select(next)
       else ((currentId.value = null), (current.value = null))
     }
   }

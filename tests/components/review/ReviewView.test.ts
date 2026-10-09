@@ -1,5 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { watch } from 'vue'
 import { DAY } from '@/shared/time'
 import type { NoteSummary } from '@/shared/types'
 
@@ -78,6 +79,21 @@ describe('ReviewView', () => {
     expect(state.calls.find(([m]) => m === 'archiveNote')?.[1]).toEqual({ id: 'b' })
     expect(useView().view.value).toBe('review')
     expect(w.find('h2').text()).toBe('Newer')
+    w.unmount()
+  })
+
+  it('never shows the editor when archiving the note that was open', async () => {
+    await useNotes().open('b')
+    useView().view.value = 'review'
+    const seen: string[] = []
+    const stop = watch(useView().view, (v) => seen.push(v), { flush: 'sync' })
+    const w = mount(ReviewView, { attachTo: document.body })
+    await flushPromises()
+    press('KeyE', 'e')
+    await flushPromises()
+    stop()
+    expect(seen).not.toContain('editor')
+    expect(useNotes().currentId.value).toBe('a')
     w.unmount()
   })
 })

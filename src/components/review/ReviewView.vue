@@ -95,22 +95,13 @@ function keep(until: number): void {
 }
 
 /**
- * Archives a note without leaving Review, even if it was open in the editor.
- * @param id - Note id.
- */
-async function archive(id: string): Promise<void> {
-  await notes.archive(id)
-  view.value = 'review'
-}
-
-/**
  * Runs a Review action on the current note.
  * @param action - What to do.
  */
 function act(action: ReviewAction): void {
   const note = current.value
   if (!note || busy.value) return
-  if (action === 'archive') settle(note.id, () => archive(note.id), 'Couldn’t archive that note')
+  if (action === 'archive') settle(note.id, () => notes.archive(note.id), 'Couldn’t archive that note')
   else if (action === 'keep') keep(keepUntil(Date.now(), settings.value.keepDays))
   else if (action === 'open') notes.open(note.id)
   else seen.value = [...seen.value, note.id]
