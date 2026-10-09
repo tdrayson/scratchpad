@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  --bg: #fbfaf7;
+  --sidebar: #f3f1ec;
+  --surface: #eae7e0;
+  --surface-hover: #e4e0d8;
+  --border: #e4e0d8;
+  --border-strong: #d2cdc2;
+  --text-primary: #1d1c1a;
+  --text-secondary: #5c5850;
+  --text-tertiary: #8a857c;
+  --accent: #2563eb;
+  --stale: #b4501f;
+  --scrim: #1d1c1a33;
+  --shadow: #2a251c24;
+  --shadow-strong: #2a251c33;
+  --on-primary-muted: #fbfaf7a0;
+  --on-primary-line: #fbfaf740;
+  --popover: #ffffff;
+  --popover-selected: #eeebe5;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #121211;
+  --sidebar: #181816;
+  --surface: #21201d;
+  --surface-hover: #26251f;
+  --border: #2b2a26;
+  --border-strong: #3a3833;
+  --text-primary: #ece9e2;
+  --text-secondary: #a19d94;
+  --text-tertiary: #6b6760;
+  --accent: #7aa7ff;
+  --stale: #e07b4f;
+  --scrim: #0a0a09b3;
+  --shadow: #00000080;
+  --shadow-strong: #000000a0;
+  --on-primary-muted: #121211a0;
+  --on-primary-line: #12121140;
+  --popover: #21201d;
+  --popover-selected: #3a3833;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-sidebar: var(--sidebar);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-tertiary: var(--text-tertiary);
+  --color-accent: var(--accent);
+  --color-stale: var(--stale);
+  --color-scrim: var(--scrim);
+  --color-popover: var(--popover);
+  --color-popover-selected: var(--popover-selected);
+  --color-on-primary-muted: var(--on-primary-muted);
+  --color-on-primary-line: var(--on-primary-line);
+  --font-sans: 'Inter Variable', Inter, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+  --shadow-popover: 0 12px 32px var(--shadow);
+  --shadow-tooltip: 0 4px 12px var(--shadow);
+  --shadow-dialog: 0 24px 60px var(--shadow-strong);
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}

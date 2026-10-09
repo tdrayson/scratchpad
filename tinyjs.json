@@ -1,0 +1,23 @@
+{
+  "name": "scratchpad",
+  "title": "Scratchpad",
+  "size": "1200x760",
+  "minSize": "720x480",
+  "id": "com.tdrayson.scratchpad",
+  "version": "0.1.0",
+  "attribution": "by tdrayson",
+  "contextMenu": false,
+  "windowPlacement": true,
+  "chrome": {
+    "frame": false,
+    "windowControls": true,
+    "windowControlsPos": { "x": 16, "y": 20 }
+  },
+  "backend": "backend/main.ts",
+  "frontend": {
+    "build": "pnpm run build",
+    "dist": "dist",
+    "dev": "pnpm run dev",
+    "devUrl": "http://127.0.0.1:5173"
+  }
+}
