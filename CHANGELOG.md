@@ -1,3 +1,7 @@
+## [0.4.2] - 2026-10-09
+### Features
+- Check for Updates… opens an in-app dialog with Download Now
+
 ## [0.4.1] - 2026-10-09
 ### Fixes
 - Toasts fade up in and drop away more noticeably
