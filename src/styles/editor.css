@@ -1,0 +1,211 @@
+/* Note body. Sizes are em of the body size (settings.textSize, 15px in the design). */
+.sp-prose {
+  font-family: var(--font-sans);
+  font-size: var(--editor-size, 15px);
+  line-height: 1.55;
+  color: var(--text-primary);
+  caret-color: var(--accent);
+  outline: none;
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+  padding-bottom: 120px;
+  overflow-wrap: break-word;
+}
+
+.sp-prose > * + * {
+  margin-top: 14px;
+}
+
+.sp-prose p,
+.sp-prose h1,
+.sp-prose h2,
+.sp-prose h3,
+.sp-prose ul,
+.sp-prose ol,
+.sp-prose blockquote,
+.sp-prose pre {
+  margin-bottom: 0;
+}
+
+.sp-prose h1,
+.sp-prose > p:first-child {
+  font-size: 1.7333em;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+}
+
+.sp-prose h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.sp-prose h3 {
+  font-size: 1.0667em;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.sp-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.8667em;
+  color: var(--accent);
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 2px 6px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.sp-prose pre {
+  font-family: var(--font-mono);
+  font-size: 0.8667em;
+  line-height: 1.6;
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 10px 12px;
+  white-space: pre-wrap;
+}
+
+.sp-prose pre code {
+  font-size: inherit;
+  color: var(--text-primary);
+  background: none;
+  padding: 0;
+}
+
+.sp-prose blockquote {
+  margin-left: 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--border-strong);
+  color: var(--text-secondary);
+}
+
+.sp-prose hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin-block: 24px;
+}
+
+.sp-prose hr.ProseMirror-selectednode {
+  border-top-color: var(--text-tertiary);
+}
+
+/* Lists: 6px between items, markers drawn in the left gutter. */
+.sp-prose ul,
+.sp-prose ol {
+  padding-left: 4px;
+  list-style: none;
+}
+
+.sp-prose li + li,
+.sp-prose li > ul,
+.sp-prose li > ol {
+  margin-top: 6px;
+}
+
+.sp-prose ul:not([data-type='taskList']) > li {
+  position: relative;
+  padding-left: 17px;
+}
+
+.sp-prose ul:not([data-type='taskList']) > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(0.775em - 2.5px);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+}
+
+.sp-prose ol {
+  counter-reset: sp-ol;
+}
+
+.sp-prose ol > li {
+  position: relative;
+  padding-left: 1.4em;
+  counter-increment: sp-ol;
+}
+
+.sp-prose ol > li::before {
+  content: counter(sp-ol) '.';
+  position: absolute;
+  left: 0;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Checklist */
+.sp-prose ul[data-type='taskList'] > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.sp-prose ul[data-type='taskList'] > li > label {
+  display: flex;
+  flex-shrink: 0;
+  margin-top: calc((1.55em - 16px) / 2);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sp-prose ul[data-type='taskList'] > li > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.sp-prose ul[data-type='taskList'] input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1.5px var(--border-strong);
+  cursor: default;
+}
+
+.sp-prose ul[data-type='taskList'] input[type='checkbox']:hover {
+  box-shadow: inset 0 0 0 1.5px var(--text-tertiary);
+}
+
+.sp-prose ul[data-type='taskList'] input[type='checkbox']:focus-visible {
+  outline: 2px solid var(--text-tertiary);
+  outline-offset: 2px;
+}
+
+.sp-prose ul[data-type='taskList'] input[type='checkbox']:checked {
+  background: var(--text-secondary);
+  box-shadow: none;
+}
+
+.sp-prose ul[data-type='taskList'] input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  left: 5.5px;
+  top: 2.5px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--sidebar);
+  border-width: 0 1.75px 1.75px 0;
+  transform: rotate(45deg);
+}
+
+.sp-prose li[data-checked='true'] > div {
+  color: var(--text-tertiary);
+}
+
+.sp-prose .is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}

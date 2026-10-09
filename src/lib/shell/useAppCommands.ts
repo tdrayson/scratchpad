@@ -8,11 +8,11 @@ import { openSettings } from '@/lib/windows'
 import { eventInitFor, NEW_NOTE_WITH_TEXT } from '@/lib/palette/palette'
 import { routesToToast } from '@/lib/shell/undo'
 
-type Focusable = { focus: () => void }
+type Focusable = { focus: () => void; flush?: () => void }
 
 /**
  * Main-window commands, shared by shortcuts, the ⌘K palette, the app menu and backend pushes.
- * @param editor - The editor pane, focused after creating a note.
+ * @param editor - The editor pane, focused after creating a note and flushed before archiving.
  * @return `run`, which executes a command by id.
  */
 export function useAppCommands(editor: Ref<Focusable | null>) {
@@ -53,7 +53,11 @@ export function useAppCommands(editor: Ref<Focusable | null>) {
 
   const handlers: Record<string, () => unknown> = {
     newNote: () => createAndFocus(),
-    archiveNote: () => view.value === 'editor' && notes.currentId.value && notes.archive(notes.currentId.value),
+    archiveNote: () => {
+      if (view.value !== 'editor' || !notes.currentId.value) return
+      editor.value?.flush?.()
+      notes.archive(notes.currentId.value)
+    },
     deleteNote: deleteCurrent,
     prevNote: () => notes.step(-1),
     nextNote: () => notes.step(1),
