@@ -143,3 +143,6 @@ pnpm app:release      # universal build, zipped into dist/release/
 ```
 
 Built with tinyjs, Vue, Tailwind and TipTap.
+## License
+
+[MIT](LICENSE). Do what you like with it.

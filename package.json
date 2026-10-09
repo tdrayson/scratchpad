@@ -40,5 +40,6 @@
     "vitest": "^5.0.3",
     "vue-tsc": "^3.3.11"
   },
-  "author": "tdrayson"
+  "author": "tdrayson",
+  "license": "MIT"
 }
