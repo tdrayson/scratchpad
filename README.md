@@ -27,7 +27,7 @@ Scratchpad gives those notes somewhere to go, and then politely shows them the d
 <div align="center">
   <img src=".github/screenshots/search.png" width="412" alt="Search: find anything with ⌘K">
   <img src=".github/screenshots/review.png" width="412" alt="Review: old notes come back around">
-  <img src=".github/screenshots/sunset.png" width="412" alt="Sunset theme: light by day, dark by night">
+  <img src=".github/screenshots/themes.png" width="412" alt="Themes: light and dark mode">
   <img src=".github/screenshots/archive.png" width="412" alt="Archive: everything stays recoverable for 30 days">
 </div>
 
