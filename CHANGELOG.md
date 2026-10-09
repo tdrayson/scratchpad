@@ -1,3 +1,8 @@
+## [0.4.0] - 2026-10-09
+### Features
+- Opt-in daily update check, off by default; notifies and links to the download
+- Scratchpad → Check for Updates… and a Check now button in Settings
+
 ## [0.3.0] - 2026-10-09
 ### Features
 - File → New Note (⌘⇧N) opens a note even when the window is hidden
