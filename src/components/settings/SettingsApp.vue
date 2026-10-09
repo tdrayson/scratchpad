@@ -8,6 +8,7 @@ import { PAGE_TITLES, savedPage, savePage } from '@/lib/settings/pages'
 import ReviewArchivePage from './ReviewArchivePage.vue'
 import SettingsNav from './SettingsNav.vue'
 import ShortcutsPage from './ShortcutsPage.vue'
+import DataPage from './DataPage.vue'
 
 useTheme()
 const { load } = useSettings()
@@ -53,7 +54,8 @@ onBeforeUnmount(() => removeEventListener('keydown', onKey))
         <template v-if="ready">
           <GeneralPage v-if="page === 'general'" />
           <ReviewArchivePage v-else-if="page === 'review'" />
-          <ShortcutsPage v-else />
+          <ShortcutsPage v-else-if="page === 'shortcuts'" />
+          <DataPage v-else />
         </template>
       </div>
     </main>

@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { call } from '@/lib/api'
 import type { ThemeMode } from '@/shared/types'
-import Button from '@/components/ui/Button.vue'
 import Select from '@/components/ui/Select.vue'
 import SettingsGroup from '@/components/ui/SettingsGroup.vue'
 import SettingsRow from '@/components/ui/SettingsRow.vue'
@@ -28,24 +25,6 @@ const launchAtLogin = useSetting('launchAtLogin')
 const markdownShortcuts = useSetting('markdownShortcuts')
 const spellCheck = useSetting('spellCheck')
 const { comboFor, setCombo } = useShortcutEditor()
-
-const exported = ref('')
-const exporting = ref(false)
-
-/** Asks for a folder and writes every note into it as Markdown. */
-async function exportAll(): Promise<void> {
-  const dir = await tiny.dialog.pickFolder()
-  if (!dir) return
-  exporting.value = true
-  try {
-    const n = await call('exportAll', { dir })
-    exported.value = `Exported ${n} ${n === 1 ? 'note' : 'notes'}`
-  } catch {
-    exported.value = 'Export failed'
-  } finally {
-    exporting.value = false
-  }
-}
 </script>
 
 <template>
@@ -87,13 +66,6 @@ async function exportAll(): Promise<void> {
       </SettingsRow>
       <SettingsRow title="Spell check">
         <Toggle v-model="spellCheck" label="Spell check" />
-      </SettingsRow>
-    </SettingsGroup>
-
-    <SettingsGroup label="Data">
-      <SettingsRow title="Export all notes" description="Saves every note, including the archive, as Markdown files.">
-        <span v-if="exported" role="status" class="text-[12px] text-tertiary">{{ exported }}</span>
-        <Button variant="strong" :disabled="exporting" @click="exportAll">Export…</Button>
       </SettingsRow>
     </SettingsGroup>
   </div>

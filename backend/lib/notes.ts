@@ -123,6 +123,33 @@ export class NoteStore {
   }
 
   /**
+   * Adds imported notes with their original dates, in one transaction.
+   * @param list - Each note's Markdown, last-edited time (also used as created) and archive time or null.
+   */
+  insertAll(list: { markdown: string; modifiedAt: number; archivedAt: number | null }[]): void {
+    run(this.db, 'BEGIN')
+    try {
+      for (const n of list) {
+        run(
+          this.db,
+          'INSERT INTO notes (id, title, doc, markdown, created_at, updated_at, archived_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          crypto.randomUUID(),
+          deriveTitle(n.markdown),
+          '',
+          n.markdown,
+          n.modifiedAt,
+          n.modifiedAt,
+          n.archivedAt,
+        )
+      }
+      run(this.db, 'COMMIT')
+    } catch (e) {
+      run(this.db, 'ROLLBACK')
+      throw e
+    }
+  }
+
+  /**
    * Saves editor content. Editing clears any Keep date, since the note is active again.
    * @param patch - Note id plus its new TipTap JSON and Markdown.
    * @param now - Save time in epoch ms.

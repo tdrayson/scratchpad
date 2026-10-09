@@ -4,9 +4,10 @@ import { resolveShortcuts } from '../src/shared/shortcuts'
 import { startOfDay } from '../src/shared/time'
 import type { NotePatch, Settings } from '../src/shared/types'
 import { openDb } from './lib/db'
-import { exportNotes } from './lib/exporter'
 import { NoteStore } from './lib/notes'
 import { SettingsStore } from './lib/settings'
+import { exportZip, readImport } from './lib/transfer'
+import { planImport } from '../src/shared/transfer'
 
 const SWEEP_MS = 60_000
 
@@ -211,10 +212,34 @@ export const api = {
     return next
   },
   /**
-   * @param p - Destination folder.
-   * @return How many files were written.
+   * @param p - Folder to save the zip in.
+   * @return Where the zip went and how many notes it holds.
    */
-  exportAll: async (p: { dir: string }) => (await ready, exportNotes(p.dir, notes.list())),
+  exportNotes: async (p: { dir: string }) => {
+    await ready
+    return exportZip(p.dir, notes.list(), settings.get().exportArchived, Date.now())
+  },
+  /**
+   * @param p - Zips, folders or Markdown files to import.
+   * @param app - The tinyjs app handle.
+   * @return How many notes were imported, how many of those were archived, and how many duplicates were skipped.
+   */
+  importNotes: async (p: { paths: string[] }, app: TinyApp) => {
+    await ready
+    const files = await readImport(p.paths)
+    const plan = planImport(files, notes.list().map((n) => n.markdown))
+    const now = Date.now()
+    notes.insertAll(plan.notes.map((n) => ({ ...n, archivedAt: n.archived ? now : null })))
+    if (plan.notes.length) {
+      changed(app)
+      sweep(app)
+    }
+    return {
+      imported: plan.notes.length,
+      archived: plan.notes.filter((n) => n.archived).length,
+      skipped: plan.skipped,
+    }
+  },
   /**
    * @param p - Frontend command to run in the main window.
    * @param app - The tinyjs app handle.

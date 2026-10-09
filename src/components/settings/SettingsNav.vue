@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Hourglass, Keyboard, Settings2 } from '@lucide/vue'
+import { Database, Hourglass, Keyboard, Settings2 } from '@lucide/vue'
 import { FOCUS_RING_INSET } from '@/lib/ui/focus'
 import type { SettingsPage } from '@/lib/settings/pages'
 
@@ -9,6 +9,7 @@ const ITEMS = [
   { id: 'general', label: 'General', icon: Settings2 },
   { id: 'review', label: 'Review & Archive', icon: Hourglass },
   { id: 'shortcuts', label: 'Shortcuts', icon: Keyboard },
+  { id: 'data', label: 'Data', icon: Database },
 ] as const
 </script>
 

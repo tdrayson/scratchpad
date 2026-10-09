@@ -35,6 +35,8 @@ export interface Settings {
   reminder: { enabled: boolean; day: number | null; time: number }
   dockBadge: boolean
   archiveDays: number
+  /** Put archived notes in an Archive folder when exporting. */
+  exportArchived: boolean
   shortcuts: Record<string, string>
 }
 

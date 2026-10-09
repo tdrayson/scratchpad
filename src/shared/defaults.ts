@@ -16,5 +16,6 @@ export const DEFAULT_SETTINGS: Settings = {
   reminder: { enabled: true, day: 1, time: 9 * 60 },
   dockBadge: true,
   archiveDays: 30,
+  exportArchived: true,
   shortcuts: {},
 }

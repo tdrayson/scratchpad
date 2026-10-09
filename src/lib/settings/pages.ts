@@ -1,9 +1,10 @@
-export type SettingsPage = 'general' | 'review' | 'shortcuts'
+export type SettingsPage = 'general' | 'review' | 'shortcuts' | 'data'
 
 export const PAGE_TITLES: Record<SettingsPage, string> = {
   general: 'General',
   review: 'Review & Archive',
   shortcuts: 'Shortcuts',
+  data: 'Data',
 }
 
 const STORAGE_KEY = 'settings.page'
