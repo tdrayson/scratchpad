@@ -5,10 +5,10 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
-  resolve: { alias: { '@': resolve(__dirname, 'src') } },
+  resolve: { alias: { '@': resolve(import.meta.dirname, 'src') } },
   build: {
     rollupOptions: {
-      input: { main: resolve(__dirname, 'index.html'), settings: resolve(__dirname, 'settings.html') },
+      input: { main: resolve(import.meta.dirname, 'index.html'), settings: resolve(import.meta.dirname, 'settings.html') },
     },
   },
   test: {
