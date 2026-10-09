@@ -1,4 +1,7 @@
-![Scratchpad](.github/banner-light.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/banner-dark.png">
+  <img alt="Scratchpad" src=".github/banner-light.png">
+</picture>
 
 # Scratchpad
 
@@ -21,9 +24,10 @@ Scratchpad gives those notes somewhere to go, and then politely shows them the d
 
 ![Write: type / for headings, checklists and code](.github/screenshots/write.png)
 
-![Search: find anything with ⌘K](.github/screenshots/search.png)    ![Review: old notes come back around](.github/screenshots/review.png)
-
-![Sunset theme: light by day, dark by night](.github/screenshots/sunset.png)    ![Archive: everything stays recoverable for 30 days](.github/screenshots/archive.png)
+| | |
+|:-:|:-:|
+| ![Search: find anything with ⌘K](.github/screenshots/search.png) | ![Review: old notes come back around](.github/screenshots/review.png) |
+| ![Sunset theme: light by day, dark by night](.github/screenshots/sunset.png) | ![Archive: everything stays recoverable for 30 days](.github/screenshots/archive.png) |
 
 ## Installation
 
