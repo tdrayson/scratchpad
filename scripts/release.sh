@@ -3,6 +3,11 @@
 set -e
 cd "$(dirname "$0")/.."
 
+if grep -q '"title": "Scratchpad Dev"' tinyjs.json; then
+  echo "tinyjs.json still has the dev title; stop app:dev first." >&2
+  exit 1
+fi
+
 VERSION=$(sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' tinyjs.json)
 mkdir -p release
 
