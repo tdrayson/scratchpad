@@ -1,4 +1,5 @@
 import { Extension } from '@tiptap/vue-3'
+import type { Node } from '@tiptap/pm/model'
 import { PluginKey } from '@tiptap/pm/state'
 import Suggestion, { type SuggestionKeyDownProps, type SuggestionProps } from '@tiptap/suggestion'
 import { reactive } from 'vue'
@@ -21,6 +22,17 @@ export interface SlashState {
  */
 export function createSlashState(): SlashState {
   return reactive({ open: false, query: '', items: [], index: 0, rect: null, choose: () => {} })
+}
+
+/**
+ * Whether `/` may open the block menu here: not in the title or inside code.
+ * @param doc - The current document.
+ * @param pos - Position of the typed `/`.
+ * @return True when the menu may open.
+ */
+export function slashAllowed(doc: Node, pos: number): boolean {
+  const $pos = doc.resolve(pos)
+  return $pos.index(0) > 0 && !$pos.parent.type.spec.code
 }
 
 /**
@@ -72,7 +84,7 @@ export function SlashCommand(state: SlashState) {
           pluginKey: new PluginKey('slashCommand'),
           editor: this.editor,
           char: '/',
-          allow: ({ state: s, range }) => !s.doc.resolve(range.from).parent.type.spec.code,
+          allow: ({ state: s, range }) => slashAllowed(s.doc, range.from),
           items: ({ query }) => filterBlocks(BLOCKS, query),
           command: ({ editor, range, props }) => {
             props.apply(editor.chain().focus().deleteRange(range)).run()
