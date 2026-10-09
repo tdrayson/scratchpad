@@ -27,7 +27,7 @@ Scratchpad gives those notes somewhere to go, and then politely shows them the d
 
 ## Installation
 
-Download `Scratchpad-<version>-macos.zip` from [Releases](../../releases), unzip it and move **Scratchpad** to Applications. It runs on Apple Silicon and Intel Macs.
+Download the zip for your Mac from [Releases](../../releases): `apple-silicon` for M-series Macs, `intel` for older ones (Apple menu → About This Mac tells you which). Unzip it and move **Scratchpad** to Applications.
 
 The app isn't notarised by Apple, so macOS will refuse to open it the first time, with its usual air of mild suspicion. Either open **System Settings → Privacy & Security** and click **Open Anyway**, or run:
 
@@ -139,7 +139,7 @@ pnpm install
 tinyjs dev            # run with hot reload
 pnpm test             # unit and component tests
 pnpm app:install      # build and replace /Applications/Scratchpad.app
-pnpm app:release      # universal build, zipped into dist/release/
+pnpm app:release      # Apple Silicon and Intel zips in release/
 ```
 
 Built with tinyjs, Vue, Tailwind and TipTap.
