@@ -14,7 +14,7 @@ Scratchpad gives those notes somewhere to go, and then politely shows them the d
 - **Local only.** Nothing leaves your Mac. No account, no sync, no tracking.
 - **Rich editor.** `/` for blocks, or plain Markdown shortcuts.
 - **Autosave.** No save button, no "Do you want to save?"
-- **Notes age out.** Stale after a week, deleted 30 days after archiving.
+- **Old notes tidy up.** Stale after a week, deleted 30 days after archiving.
 - **Review.** Archive, keep or open stale notes, one key each.
 - **⌘K search.** Every note, archived ones too, plus actions.
 - **Quick capture.** ⌥Space from any app.
@@ -56,7 +56,7 @@ The only way a note leaves your Mac is if you copy or export it.
 
 ## Documentation
 
-### How notes age out
+### What happens to old notes
 
 1. **Active.** Recently edited, under Today and This week.
 2. **Going stale.** Untouched for 7 days. Moves to the bottom of the sidebar, age in orange.
