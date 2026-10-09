@@ -15,6 +15,7 @@ describe('filterBlocks', () => {
 
   it('matches title prefixes first, case-insensitively', () => {
     expect(ids('HEAD')).toEqual(['h2', 'h3'])
+    expect(ids('heading 2')).toEqual(['h2'])
     expect(ids('c')).toEqual(['checklist', 'code', 'quote'])
   })
 
