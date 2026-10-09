@@ -40,20 +40,18 @@ onBeforeUnmount(hold)
 </script>
 
 <template>
-  <Teleport to="body">
-    <div
-      v-bind="$attrs"
-      role="status"
-      aria-live="polite"
-      class="fixed bottom-6 left-1/2 z-40 flex h-11 -translate-x-1/2 items-center gap-3.5 rounded-[10px] bg-popover pr-2 pl-4 font-sans leading-[normal] whitespace-nowrap shadow-[0_10px_28px_var(--shadow)] inset-ring inset-ring-border-strong"
-      @mouseenter="hold"
-      @mouseleave="arm"
-      @keydown.esc="emit('dismiss')"
-    >
-      <component :is="icon" v-if="icon" :size="14" class="text-secondary" aria-hidden="true" />
-      <span class="text-[13px] text-primary">{{ message }}</span>
-      <span v-if="detail" class="text-[12px] text-tertiary">{{ detail }}</span>
-      <Button v-if="actionLabel" variant="filled" @click="emit('action')">{{ actionLabel }}</Button>
-    </div>
-  </Teleport>
+  <div
+    v-bind="$attrs"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-6 left-1/2 z-40 flex h-11 -translate-x-1/2 items-center gap-3.5 rounded-[10px] bg-popover pr-2 pl-4 font-sans leading-[normal] whitespace-nowrap shadow-[0_10px_28px_var(--shadow)] inset-ring inset-ring-border-strong"
+    @mouseenter="hold"
+    @mouseleave="arm"
+    @keydown.esc="emit('dismiss')"
+  >
+    <component :is="icon" v-if="icon" :size="14" class="text-secondary" aria-hidden="true" />
+    <span class="text-[13px] text-primary">{{ message }}</span>
+    <span v-if="detail" class="text-[12px] text-tertiary">{{ detail }}</span>
+    <Button v-if="actionLabel" variant="filled" @click="emit('action')">{{ actionLabel }}</Button>
+  </div>
 </template>

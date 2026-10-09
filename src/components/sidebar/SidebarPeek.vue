@@ -33,8 +33,10 @@ onBeforeUnmount(() => clearTimeout(timer))
   <div class="fixed inset-y-0 left-0 z-30" @mouseleave="hide" @keydown.esc="hide">
     <div class="h-full w-1.5" aria-hidden="true" @mouseenter="arm" />
     <!-- The 8px inset counts as inside, so moving from the strip onto the panel doesn't close it. -->
-    <div v-if="shown" class="absolute inset-y-0 left-0 p-2">
-      <Sidebar floating @search="(hide(), emit('search'))" @create="(hide(), emit('create'))" />
-    </div>
+    <Transition name="peek">
+      <div v-if="shown" class="absolute inset-y-0 left-0 p-2">
+        <Sidebar floating @search="(hide(), emit('search'))" @create="(hide(), emit('create'))" />
+      </div>
+    </Transition>
   </div>
 </template>

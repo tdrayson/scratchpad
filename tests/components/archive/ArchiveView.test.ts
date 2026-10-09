@@ -60,7 +60,7 @@ describe('ArchiveView', () => {
   })
 
   it('lists archived notes with the countdown, orange when close', async () => {
-    const w = mount(ArchiveView, { attachTo: document.body })
+    const w = mount(ArchiveView, { attachTo: document.body, global: { stubs: { TransitionGroup: false } } })
     expect(w.text()).toContain('Archive · 2 notes')
     const rows = w.findAll('li')
     expect(rows[0].text()).toContain('9 days ago')
@@ -70,7 +70,7 @@ describe('ArchiveView', () => {
   })
 
   it('moves with arrows, restores with Enter and deletes with ⌘⌫ after confirming', async () => {
-    const w = mount(ArchiveView, { attachTo: document.body })
+    const w = mount(ArchiveView, { attachTo: document.body, global: { stubs: { TransitionGroup: false } } })
     const first = w.findAll('li')[0].element as HTMLElement
     first.focus()
     press(first, { key: 'ArrowDown', code: 'ArrowDown' })
@@ -93,7 +93,7 @@ describe('ArchiveView', () => {
   })
 
   it('empties the archive after confirming', async () => {
-    const w = mount(ArchiveView, { attachTo: document.body })
+    const w = mount(ArchiveView, { attachTo: document.body, global: { stubs: { TransitionGroup: false } } })
     await w.find('button').trigger('click')
     await flushPromises()
     expect(state.calls.some(([m]) => m === 'emptyArchive')).toBe(true)

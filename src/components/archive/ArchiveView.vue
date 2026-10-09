@@ -153,7 +153,8 @@ useShortcuts({
             <span class="w-[150px]">Deletes in</span>
             <span class="w-[132px]" />
           </div>
-          <ul ref="listEl" class="m-0 flex list-none flex-col gap-0.5 p-0" aria-label="Archived notes" @keydown="onKey">
+          <ul ref="listEl" class="relative m-0 flex list-none flex-col gap-0.5 p-0" aria-label="Archived notes" @keydown="onKey">
+            <TransitionGroup name="row">
             <ArchiveRow
               v-for="(note, i) in list"
               :key="note.id"
@@ -165,6 +166,7 @@ useShortcuts({
               @restore="restore(note)"
               @remove="remove(note)"
             />
+            </TransitionGroup>
           </ul>
         </div>
 

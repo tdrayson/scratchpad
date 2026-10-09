@@ -148,7 +148,7 @@ onBeforeUnmount(() => clearTimeout(timer))
       v-if="open"
       ref="tip"
       role="tooltip"
-      class="pointer-events-none fixed z-50 flex items-center gap-2 rounded-md bg-primary py-[5px] pl-[9px] font-sans text-[12px] leading-[normal] font-medium whitespace-nowrap text-bg shadow-tooltip"
+      class="pop-in pointer-events-none fixed z-50 flex items-center gap-2 rounded-md bg-primary py-[5px] pl-[9px] font-sans text-[12px] leading-[normal] font-medium whitespace-nowrap text-bg shadow-tooltip"
       :class="combo ? 'pr-1.5' : 'pr-[9px]'"
       :style="{ top: `${pos.top}px`, left: `${pos.left}px` }"
     >

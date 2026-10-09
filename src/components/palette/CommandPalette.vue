@@ -137,67 +137,65 @@ onBeforeUnmount(() => returnFocus?.focus?.())
 </script>
 
 <template>
-  <Teleport to="body">
-    <div class="fixed inset-0 z-40 flex items-start justify-center bg-scrim px-4 pt-[110px]" @mousedown.self="emit('close')">
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Search and commands"
-        class="flex w-[620px] max-w-full flex-col overflow-hidden rounded-xl bg-popover font-sans leading-[normal] shadow-dialog inset-ring inset-ring-border-strong"
-      >
-        <div class="flex h-14 shrink-0 items-center gap-3 border-b border-border px-[18px]">
-          <Search :size="18" class="shrink-0 text-secondary" aria-hidden="true" />
-          <input
-            ref="input"
-            v-model="query"
-            type="text"
-            role="combobox"
-            aria-expanded="true"
-            aria-controls="palette-list"
-            aria-autocomplete="list"
-            aria-label="Search notes and commands"
-            :aria-activedescendant="selected ? optionId(selected) : undefined"
-            placeholder="Search notes"
-            spellcheck="false"
-            class="min-w-0 flex-1 bg-transparent text-[17px] text-primary caret-accent outline-none select-text placeholder:text-tertiary"
-            @keydown="onKey"
-          />
-          <Kbd>esc</Kbd>
-        </div>
-        <div id="palette-list" ref="list" role="listbox" class="flex max-h-[calc(100vh-240px)] flex-col gap-0.5 overflow-y-auto p-2">
-          <div v-for="section in sections" :key="section.id" role="group" :aria-labelledby="`palette-${section.id}`" class="flex flex-col gap-0.5">
-            <SectionLabel :id="`palette-${section.id}`" class="px-2.5 pt-2 pb-1">
-              {{ section.label }}
-              <template v-if="section.trailing" #trailing>{{ section.trailing }}</template>
-            </SectionLabel>
-            <div
-              v-for="item in section.items"
-              :id="optionId(item)"
-              :key="item.key"
-              role="option"
-              :aria-selected="item === selected"
-              @mousemove="index = items.indexOf(item)"
-              @click="run(item)"
-            >
-              <CommandItem
-                v-if="item.kind === 'action'"
-                :icon="ICONS[item.action.id] ?? SquarePen"
-                :label="item.action.label"
-                :combo="comboFor(item.action.id)"
-                :selected="item === selected"
-              />
-              <SearchResult
-                v-else
-                :title="item.note.title"
-                :snippet="item.snippet"
-                :meta="item.meta"
-                :archived="item.kind === 'archived'"
-                :selected="item === selected"
-              />
-            </div>
+  <div class="fixed inset-0 z-40 flex items-start justify-center bg-scrim px-4 pt-[110px]" @mousedown.self="emit('close')">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search and commands"
+      class="flex w-[620px] max-w-full flex-col overflow-hidden rounded-xl bg-popover font-sans leading-[normal] shadow-dialog inset-ring inset-ring-border-strong"
+    >
+      <div class="flex h-14 shrink-0 items-center gap-3 border-b border-border px-[18px]">
+        <Search :size="18" class="shrink-0 text-secondary" aria-hidden="true" />
+        <input
+          ref="input"
+          v-model="query"
+          type="text"
+          role="combobox"
+          aria-expanded="true"
+          aria-controls="palette-list"
+          aria-autocomplete="list"
+          aria-label="Search notes and commands"
+          :aria-activedescendant="selected ? optionId(selected) : undefined"
+          placeholder="Search notes"
+          spellcheck="false"
+          class="min-w-0 flex-1 bg-transparent text-[17px] text-primary caret-accent outline-none select-text placeholder:text-tertiary"
+          @keydown="onKey"
+        />
+        <Kbd>esc</Kbd>
+      </div>
+      <div id="palette-list" ref="list" role="listbox" class="flex max-h-[calc(100vh-240px)] flex-col gap-0.5 overflow-y-auto p-2">
+        <div v-for="section in sections" :key="section.id" role="group" :aria-labelledby="`palette-${section.id}`" class="flex flex-col gap-0.5">
+          <SectionLabel :id="`palette-${section.id}`" class="px-2.5 pt-2 pb-1">
+            {{ section.label }}
+            <template v-if="section.trailing" #trailing>{{ section.trailing }}</template>
+          </SectionLabel>
+          <div
+            v-for="item in section.items"
+            :id="optionId(item)"
+            :key="item.key"
+            role="option"
+            :aria-selected="item === selected"
+            @mousemove="index = items.indexOf(item)"
+            @click="run(item)"
+          >
+            <CommandItem
+              v-if="item.kind === 'action'"
+              :icon="ICONS[item.action.id] ?? SquarePen"
+              :label="item.action.label"
+              :combo="comboFor(item.action.id)"
+              :selected="item === selected"
+            />
+            <SearchResult
+              v-else
+              :title="item.note.title"
+              :snippet="item.snippet"
+              :meta="item.meta"
+              :archived="item.kind === 'archived'"
+              :selected="item === selected"
+            />
           </div>
         </div>
       </div>
     </div>
-  </Teleport>
+  </div>
 </template>

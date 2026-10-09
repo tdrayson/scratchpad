@@ -36,22 +36,32 @@ function runToastAction(): void {
 
 <template>
   <div class="flex h-full bg-bg text-primary">
-    <Sidebar v-if="sidebarOpen" @search="paletteOpen = true" @create="createAndFocus()" />
-    <SidebarPeek v-else @search="paletteOpen = true" @create="createAndFocus()" />
+    <div class="sidebar-shell flex shrink-0 overflow-hidden" :style="{ width: sidebarOpen ? '280px' : '0px' }" :inert="!sidebarOpen">
+      <Sidebar @search="paletteOpen = true" @create="createAndFocus()" />
+    </div>
+    <SidebarPeek v-if="!sidebarOpen" @search="paletteOpen = true" @create="createAndFocus()" />
     <main class="relative flex min-w-0 flex-1 flex-col">
-      <EditorPane v-if="view === 'editor'" ref="editor" />
-      <ReviewView v-else-if="view === 'review'" />
-      <ArchiveView v-else />
+      <Transition name="view" mode="out-in">
+        <EditorPane v-if="view === 'editor'" ref="editor" />
+        <ReviewView v-else-if="view === 'review'" />
+        <ArchiveView v-else />
+      </Transition>
     </main>
-    <CommandPalette v-if="paletteOpen" @close="paletteOpen = false" @action="run" />
-    <Toast
-      v-if="toast"
-      :key="toast.id"
-      :message="toast.message"
-      :action-label="toast.action?.label"
-      :style="sidebarOpen ? { left: 'calc(50% + 140px)' } : undefined"
-      @action="runToastAction"
-      @dismiss="toast = null"
-    />
+    <Teleport to="body">
+      <Transition name="palette">
+        <CommandPalette v-if="paletteOpen" @close="paletteOpen = false" @action="run" />
+      </Transition>
+      <Transition name="toast">
+        <Toast
+          v-if="toast"
+          :key="toast.id"
+          :message="toast.message"
+          :action-label="toast.action?.label"
+          :style="sidebarOpen ? { left: 'calc(50% + 140px)' } : undefined"
+          @action="runToastAction"
+          @dismiss="toast = null"
+        />
+      </Transition>
+    </Teleport>
   </div>
 </template>
