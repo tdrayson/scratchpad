@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { call, on } from '../lib/api'
+import { isBlank } from '../lib/notes/blank'
 import { groupOf, reviewQueue, type Group } from '../shared/lifecycle'
 import type { Note, NoteSummary } from '../shared/types'
 import { useClock } from './useClock'
@@ -77,11 +78,16 @@ export function useNotes() {
   }
 
   /**
-   * Creates a note and opens it.
+   * Creates a note and opens it. A blank request reuses an existing blank note instead of adding another.
    * @param markdown - Optional starting text.
-   * @return The new note.
+   * @return The new (or reused) note.
    */
   async function create(markdown = ''): Promise<Note> {
+    const blank = markdown ? null : active.value.find((n) => isBlank(n.markdown))
+    if (blank) {
+      if (currentId.value !== blank.id || view.value !== 'editor') await open(blank.id)
+      if (current.value) return current.value
+    }
     const note = await call('createNote', { markdown })
     await refresh()
     currentId.value = note.id

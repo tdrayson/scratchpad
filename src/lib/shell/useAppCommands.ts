@@ -26,6 +26,8 @@ export function useAppCommands(editor: Ref<EditorHandle | null>) {
    */
   async function createAndFocus(markdown = ''): Promise<void> {
     paletteOpen.value = false
+    await editor.value?.flush?.()
+    await notes.refresh()
     await notes.create(markdown)
     await nextTick()
     editor.value?.focus()
