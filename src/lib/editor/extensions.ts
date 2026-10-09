@@ -5,22 +5,25 @@ import { Placeholder } from '@tiptap/extensions'
 import { Markdown } from '@tiptap/markdown'
 import { StarterKit } from '@tiptap/starter-kit'
 import { SlashCommand, type SlashState } from './slash'
+import { TitleGuard } from './title'
 
 /**
- * The editor's extensions: rich blocks, nested checklists, Markdown I/O and, optionally, the `/` menu.
+ * The editor's extensions: rich blocks, nested checklists, a required H1 title, Markdown I/O and, optionally, the `/` menu.
  * @param slash - Slash-menu state to drive; omit for a headless editor (tests, conversion).
+ * @param title - Enforce the H1 title rule; off for headless conversion.
  * @return Extensions for a TipTap editor.
  */
-export function editorExtensions(slash?: SlashState): AnyExtension[] {
+export function editorExtensions(slash?: SlashState, title = Boolean(slash)): AnyExtension[] {
   const list: AnyExtension[] = [
     StarterKit.configure({ heading: { levels: [1, 2, 3] }, link: { openOnClick: false } }),
     TaskList,
     TaskItem.configure({ nested: true }),
     Placeholder.configure({
-      placeholder: ({ node, pos }) => (pos === 0 && node.type.name === 'heading' ? 'Untitled' : ''),
+      placeholder: ({ node, pos }) => (pos === 0 && node.type.name === 'heading' ? 'Title' : ''),
     }),
     Markdown,
   ]
+  if (title) list.push(TitleGuard)
   if (slash) list.push(SlashCommand(slash))
   return list
 }
