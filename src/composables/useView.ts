@@ -8,10 +8,18 @@ export interface ToastState {
   action?: { label: string; run: () => void }
 }
 
+export interface DialogState {
+  title: string
+  message: string
+  confirm?: { label: string; run: () => void }
+  cancelLabel?: string
+}
+
 const view = ref<View>('editor')
 const sidebarOpen = ref(true)
 const paletteOpen = ref(false)
 const toast = ref<ToastState | null>(null)
+const dialog = ref<DialogState | null>(null)
 let toastTimer: ReturnType<typeof setTimeout> | null = null
 
 /**
@@ -26,9 +34,9 @@ function showToast(message: string, action?: ToastState['action']): void {
 }
 
 /**
- * Shared main-window UI state: the current view, sidebar, ⌘K palette and toast.
+ * Shared main-window UI state: the current view, sidebar, ⌘K palette, toast and modal dialog.
  * @return Reactive view state and helpers.
  */
 export function useView() {
-  return { view, sidebarOpen, paletteOpen, toast, showToast }
+  return { view, sidebarOpen, paletteOpen, toast, dialog, showToast }
 }

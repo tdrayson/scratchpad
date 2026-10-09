@@ -9,6 +9,7 @@ import ReviewArchivePage from './ReviewArchivePage.vue'
 import SettingsNav from './SettingsNav.vue'
 import ShortcutsPage from './ShortcutsPage.vue'
 import DataPage from './DataPage.vue'
+import DevBar from '@/components/ui/DevBar.vue'
 
 useTheme()
 const { load } = useSettings()
@@ -44,20 +45,23 @@ onBeforeUnmount(() => removeEventListener('keydown', onKey))
 </script>
 
 <template>
-  <div class="flex h-full overflow-hidden bg-bg font-sans leading-[normal] text-primary">
-    <SettingsNav v-model="page" />
-    <main class="flex min-w-0 flex-1 flex-col">
-      <header data-tiny-drag class="shrink-0 px-8 pt-[22px]">
-        <h1 class="m-0 text-[20px] font-semibold tracking-[-0.3px] text-primary">{{ PAGE_TITLES[page] }}</h1>
-      </header>
-      <div ref="scroller" class="min-h-0 flex-1 overflow-y-auto px-8 pt-7 pb-9">
-        <template v-if="ready">
-          <GeneralPage v-if="page === 'general'" />
-          <ReviewArchivePage v-else-if="page === 'review'" />
-          <ShortcutsPage v-else-if="page === 'shortcuts'" />
-          <DataPage v-else />
-        </template>
-      </div>
-    </main>
+  <div class="flex h-full flex-col bg-bg font-sans leading-[normal] text-primary">
+    <div class="flex min-h-0 flex-1 overflow-hidden">
+      <SettingsNav v-model="page" />
+      <main class="flex min-w-0 flex-1 flex-col">
+        <header data-tiny-drag class="shrink-0 px-8 pt-[22px]">
+          <h1 class="m-0 text-[20px] font-semibold tracking-[-0.3px] text-primary">{{ PAGE_TITLES[page] }}</h1>
+        </header>
+        <div ref="scroller" class="min-h-0 flex-1 overflow-y-auto px-8 pt-7 pb-9">
+          <template v-if="ready">
+            <GeneralPage v-if="page === 'general'" />
+            <ReviewArchivePage v-else-if="page === 'review'" />
+            <ShortcutsPage v-else-if="page === 'shortcuts'" />
+            <DataPage v-else />
+          </template>
+        </div>
+      </main>
+    </div>
+    <DevBar />
   </div>
 </template>
