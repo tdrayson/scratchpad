@@ -23,7 +23,7 @@ export async function openSettings(): Promise<void> {
 export function installMenu(): void {
   tiny.menu.set([
     { role: 'app', items: [{ id: 'settings', label: 'Settings…', key: ',' }] },
-    { title: 'File', items: [{ id: 'newNote', label: 'New Note' }] },
+    { title: 'File', items: [{ id: 'newNote', label: 'New Note', key: 'N' }] },
     { role: 'edit' },
   ])
 }
