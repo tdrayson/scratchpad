@@ -1,7 +1,4 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/banner-dark.png">
-  <img alt="Scratchpad" src=".github/banner-light.png">
-</picture>
+![Scratchpad](.github/banner-light.png)
 
 # Scratchpad
 
@@ -18,22 +15,15 @@ Scratchpad gives those notes somewhere to go, and then politely shows them the d
 - **Review.** Archive, keep or open stale notes, one key each.
 - **⌘K search.** Every note, archived ones too, plus actions.
 - **Quick capture.** ⌥Space from any app.
-- **Markdown out.** Copy or export any note as Markdown.
+- **Markdown in and out.** Copy notes as Markdown, export everything as a zip, or import a pile of `.md` files.
 - **Sunset theme.** Light by day, dark by night.
 - **Remappable shortcuts.** All of them.
 
-<img src=".github/screenshots/write.png" alt="Write: type / for headings, checklists and code">
+![Write: type / for headings, checklists and code](.github/screenshots/write.png)
 
-<p align="center">
-  <img src=".github/screenshots/search.png" width="48%" alt="Search: find anything with ⌘K">
-  &nbsp;&nbsp;
-  <img src=".github/screenshots/review.png" width="48%" alt="Review: old notes come back around">
-</p>
-<p align="center">
-  <img src=".github/screenshots/sunset.png" width="48%" alt="Sunset theme: light by day, dark by night">
-  &nbsp;&nbsp;
-  <img src=".github/screenshots/archive.png" width="48%" alt="Archive: everything stays recoverable for 30 days">
-</p>
+![Search: find anything with ⌘K](.github/screenshots/search.png)    ![Review: old notes come back around](.github/screenshots/review.png)
+
+![Sunset theme: light by day, dark by night](.github/screenshots/sunset.png)    ![Archive: everything stays recoverable for 30 days](.github/screenshots/archive.png)
 
 ## Installation
 
@@ -70,14 +60,18 @@ The only way a note leaves your Mac is if you copy or export it.
 
 All the timings can be changed in Settings.
 
+
+
 ### Writing
 
 - **Title first.** Every note starts with a title; it's what the sidebar and search show.
 - **Blocks.** Type `/` for headings, lists, checklists, quotes, code and dividers.
-- **Markdown shortcuts.** `##`, `-`, `[]`, `>`, ` ``` ` and `---` as you type. Can be turned off.
+- **Markdown shortcuts.** `##`, `-`, `[]`, `>`, ````` and `---` as you type. Can be turned off.
 - **Autosave.** Notes save as you type.
 - **Copy as Markdown.** ⌘C copies Markdown with the rich text; ⌘⇧C copies the whole note.
 - **Quick capture.** ⌥Space opens a new note from any app, even when hidden.
+
+
 
 ### Finding notes
 
@@ -85,32 +79,43 @@ All the timings can be changed in Settings.
 - **⌘⌥↑ / ⌘⌥↓** step through notes in sidebar order.
 - **⌘S** hides the sidebar. Hover the left edge to peek.
 
+
+
 ### Settings
 
 Open with ⌘,.
 
-- **General:** theme, text size, quick capture, menu bar icon, launch at login, Markdown shortcuts, spell check, export.
+- **General:** theme, text size, quick capture, menu bar icon, launch at login, Markdown shortcuts, spell check.
 - **Review & Archive:** stale after, default keep length, reminder, Dock badge, archive length.
 - **Shortcuts:** remap anything.
+- **Data:** export and import.
+
+
 
 ### Shortcuts
 
-| Action | Default |
-| --- | --- |
-| New note from anywhere | ⌥Space |
-| New note | ⌘N |
-| Search and actions | ⌘K |
-| Show / hide sidebar | ⌘S |
-| Previous / next note | ⌘⌥↑ / ⌘⌥↓ |
-| Archive note | ⌘E |
-| Undo archive | ⌘Z |
-| Delete permanently (in Archive) | ⌘⌫ |
-| Copy note as Markdown | ⌘⇧C |
-| Review | ⌘⇧R |
-| Archive | ⌘⇧A |
-| Settings | ⌘, |
+
+| Action                          | Default   |
+| ------------------------------- | --------- |
+| New note from anywhere          | ⌥Space    |
+| New note                        | ⌘N        |
+| Search and actions              | ⌘K        |
+| Show / hide sidebar             | ⌘S        |
+| Previous / next note            | ⌘⌥↑ / ⌘⌥↓ |
+| Archive note                    | ⌘E        |
+| Undo archive                    | ⌘Z        |
+| Delete permanently (in Archive) | ⌘⌫        |
+| Copy note as Markdown           | ⌘⇧C       |
+| Review                          | ⌘⇧R       |
+| Archive                         | ⌘⇧A       |
+| Settings                        | ⌘,        |
+
+
+
 
 ### Your data
+
+Your notes are private. They're stored on your Mac and never sent anywhere: Scratchpad has no servers, no account, no sync and no analytics, and it makes no network requests at all. Nobody else can read your notes, including me. Notes only leave your Mac if you copy or export them yourself.
 
 Everything is in one file:
 
@@ -119,8 +124,11 @@ Everything is in one file:
 ```
 
 - **Back up:** copy that file while Scratchpad is closed.
-- **Export:** Settings → General → Export all notes. One `.md` file per note.
+- **Export:** Settings → Data → Export. Saves a zip with one `.md` file per note, archived notes in an `Archive` folder (optional).
+- **Import:** drop a zip, a folder or some `.md` files on Settings → Data. Each file becomes a note and keeps its date, anything in an `Archive` folder goes straight to the archive, and notes you already have are skipped. Handy for moving from another app, or another Mac.
 - **Uninstall:** delete the app and that folder.
+
+
 
 ## Contributing
 
