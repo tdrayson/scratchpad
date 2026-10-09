@@ -30,10 +30,10 @@
 
 .sp-prose h1,
 .sp-prose > p:first-child {
-  font-size: 1.7333em;
+  font-size: 2em;
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.5px;
 }
 
 .sp-prose h2 {
