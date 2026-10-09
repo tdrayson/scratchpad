@@ -20,7 +20,7 @@ export function editorExtensions(slash?: SlashState, title = Boolean(slash)): An
     TaskItem.configure({ nested: true }),
     Placeholder.configure({
       placeholder: ({ editor, node, pos }) => {
-        if (pos === 0 && node.type.name === 'heading') return 'Title'
+        if (pos === 0 && node.type.name === 'heading') return 'Untitled'
         const topLevel = editor.state.doc.resolve(pos).depth === 0
         return topLevel && node.type.name === 'paragraph' ? 'Start writing. Type / for blocks.' : ''
       },
