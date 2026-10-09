@@ -43,14 +43,15 @@ xattr -dr com.apple.quarantine /Applications/Scratchpad.app
 
 If you'd rather not take a stranger's app on trust (fair), [build it yourself](#contributing).
 
-**Updating:** there's no auto-update (see [Local only](#local-only)), so grab the latest zip from Releases and replace the app in Applications. Your notes live elsewhere and stay put; you'll just need to do the Open Anyway dance again.
+**Updating:** Scratchpad can tell you when there's a new version (Scratchpad → Check for Updates…, or turn on automatic checks in Settings), but it won't install it for you. Grab the latest zip from Releases and replace the app in Applications. Your notes live elsewhere and stay put; you'll just need to do the Open Anyway dance again.
 
 ## Local only
 
 Your notes stay on your Mac. That's not a setting; it's the only way it works.
 
 - **One file.** Notes live in a SQLite file on your disk, and nowhere else.
-- **No network.** No account, sync, analytics, crash reports or update checks. It doesn't phone home; it doesn't have the number.
+- **No network.** No account, sync, analytics or crash reports. It doesn't phone home; it doesn't have the number.
+- **Update checks are opt-in.** Off by default. Turn them on and it asks GitHub for the latest version number once a day. That's the whole conversation.
 - **No Location Services.** Sunset times are worked out on-device from your time zone, or a city you pick.
 - **Local reminders.** Plain macOS notifications, scheduled by the app.
 
@@ -93,7 +94,7 @@ All the timings can be changed in Settings.
 
 Open with ⌘,.
 
-- **General:** theme, text size, quick capture, launch at login, Markdown shortcuts, spell check.
+- **General:** theme, text size, quick capture, launch at login, Markdown shortcuts, spell check, update checks.
 - **Review & Archive:** stale after, default keep length, reminder, Dock badge, archive length.
 - **Shortcuts:** remap anything.
 - **Data:** export and import.
@@ -123,7 +124,7 @@ Open with ⌘,.
 
 ### Your data
 
-Your notes are private. They're stored on your Mac and never sent anywhere: Scratchpad has no servers, no account, no sync and no analytics, and it makes no network requests at all. Nobody else can read your notes, including me. Notes only leave your Mac if you copy or export them yourself.
+Your notes are private. They're stored on your Mac and never sent anywhere: Scratchpad has no servers, no account, no sync and no analytics, and it makes no network requests at all, unless you turn on update checks, which only ask GitHub for the latest version number. Nobody else can read your notes, including me. Notes only leave your Mac if you copy or export them yourself.
 
 Everything is in one file:
 
