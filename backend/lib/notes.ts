@@ -60,10 +60,14 @@ function toNote(row: Row): Note {
 }
 
 export class NoteStore {
+  private db: Database
+
   /**
    * @param db - The open notes database.
    */
-  constructor(private db: Database) {}
+  constructor(db: Database) {
+    this.db = db
+  }
 
   /**
    * Every note, active and archived, most recently edited first.

@@ -4,10 +4,14 @@ import type { Settings } from '../../src/shared/types'
 import { all, run } from './db'
 
 export class SettingsStore {
+  private db: Database
+
   /**
    * @param db - The open notes database.
    */
-  constructor(private db: Database) {}
+  constructor(db: Database) {
+    this.db = db
+  }
 
   /**
    * Current settings, with defaults filled in for anything never saved.
