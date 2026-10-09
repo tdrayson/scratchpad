@@ -1,3 +1,7 @@
+## [0.4.1] - 2026-10-09
+### Fixes
+- Toasts fade up in and drop away more noticeably
+
 ## [0.4.0] - 2026-10-09
 ### Features
 - Opt-in daily update check, off by default; notifies and links to the download
