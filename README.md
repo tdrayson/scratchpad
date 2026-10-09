@@ -5,7 +5,7 @@
 
 # Scratchpad
 
-**[Installation](#installation)** · **[Documentation](#documentation)** · **[Contributing](#contributing)**
+**[Installation](#installation)** · **[Documentation](#how-notes-age-out)** · **[Contributing](#contributing)**
 
 A small macOS app for the notes you never meant to keep: a phone number for the next ten minutes, a shopping list, the snippet you're about to paste somewhere else. You know, the stuff currently living in eleven unsaved TextEdit windows, each one guarding its contents behind a "Do you want to save?" prompt.
 
@@ -58,9 +58,9 @@ Your notes stay on your Mac. That's not a setting; it's the only way it works.
 
 The only way a note leaves your Mac is if you copy or export it.
 
-## Documentation
+## How notes age out
 
-### How notes age out
+Every note goes through the same stages:
 
 1. **Active.** Recently edited, under Today and This week.
 2. **Going stale.** Untouched for 7 days. Moves to the bottom of the sidebar, age in orange.
@@ -70,7 +70,7 @@ The only way a note leaves your Mac is if you copy or export it.
 
 All the timings can be changed in Settings.
 
-### Writing
+## Writing
 
 - **Title first.** Every note starts with a title; it's what the sidebar and search show.
 - **Blocks.** Type `/` for headings, lists, checklists, quotes, code and dividers.
@@ -79,13 +79,13 @@ All the timings can be changed in Settings.
 - **Copy as Markdown.** ⌘C copies Markdown with the rich text; ⌘⇧C copies the whole note.
 - **Quick capture.** ⌥Space opens a new note from any app, even when hidden.
 
-### Finding notes
+## Finding notes
 
 - **⌘K** searches every note, archived ones too, and runs actions.
 - **⌘⌥↑ / ⌘⌥↓** step through notes in sidebar order.
 - **⌘S** hides the sidebar. Hover the left edge to peek.
 
-### Settings
+## Settings
 
 Open with ⌘,.
 
@@ -93,7 +93,7 @@ Open with ⌘,.
 - **Review & Archive:** stale after, default keep length, reminder, Dock badge, archive length.
 - **Shortcuts:** remap anything.
 
-### Shortcuts
+## Shortcuts
 
 | Action | Default |
 | --- | --- |
@@ -110,7 +110,7 @@ Open with ⌘,.
 | Archive | ⌘⇧A |
 | Settings | ⌘, |
 
-### Your data
+## Your data
 
 Everything is in one file:
 
