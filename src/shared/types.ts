@@ -36,6 +36,8 @@ export interface Settings {
   archiveDays: number
   /** Put archived notes in an Archive folder when exporting. */
   exportArchived: boolean
+  /** Ask GitHub once a day whether a newer release exists. */
+  checkUpdates: boolean
   shortcuts: Record<string, string>
 }
 

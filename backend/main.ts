@@ -7,9 +7,12 @@ import { openDb } from './lib/db'
 import { NoteStore } from './lib/notes'
 import { SettingsStore } from './lib/settings'
 import { exportZip, readImport } from './lib/transfer'
+import { fetchUpdate } from './lib/updates'
 import { planImport } from '../src/shared/transfer'
+import { RELEASES_URL, type UpdateStatus } from '../src/shared/updates'
 
 const SWEEP_MS = 60_000
+const UPDATE_NOTIFICATION = 'update'
 
 let db: Database
 let notes: NoteStore
@@ -59,6 +62,38 @@ function sweep(app: TinyApp): void {
       body: stale === 1 ? '1 note is going stale.' : `${stale} notes are going stale.`,
     })
   }
+
+  if (s.checkUpdates && settings.meta('updateChecked') !== today) {
+    settings.setMeta('updateChecked', today)
+    checkForUpdate(app, false).catch(() => {})
+  }
+}
+
+/**
+ * Checks GitHub for a newer release and sends a notification that opens the Releases page.
+ * @param app - The tinyjs app handle.
+ * @param manual - True when the user asked: always reports, even when up to date or offline.
+ * @return The running and latest versions.
+ */
+async function checkForUpdate(app: TinyApp, manual: boolean): Promise<UpdateStatus> {
+  let status: UpdateStatus
+  try {
+    status = await fetchUpdate(app.info.version)
+  } catch (e) {
+    if (manual) app.notify({ title: "Couldn't check for updates", body: 'Check your connection and try again.' })
+    throw e
+  }
+  if (status.available && (manual || settings.meta('updateNotified') !== status.latest)) {
+    settings.setMeta('updateNotified', status.latest)
+    app.notify({
+      id: UPDATE_NOTIFICATION,
+      title: `Scratchpad ${status.latest} is available`,
+      body: `You have ${status.current}. Click to open the download page.`,
+    })
+  } else if (manual && !status.available) {
+    app.notify({ title: "You're up to date", body: `Scratchpad ${status.current} is the latest version.` })
+  }
+  return status
 }
 
 /**
@@ -225,6 +260,12 @@ export const api = {
     }
   },
   /**
+   * @param _p - Unused.
+   * @param app - The tinyjs app handle.
+   * @return The running and latest versions.
+   */
+  checkForUpdate: async (_p: unknown, app: TinyApp) => (await ready, fetchUpdate(app.info.version)),
+  /**
    * @param p - Frontend command to run in the main window.
    * @param app - The tinyjs app handle.
    */
@@ -261,14 +302,23 @@ export function onHotkey(id: string, app: TinyApp): void {
   if (id === 'quickCapture') command(app, 'quickCapture')
 }
 
-
 /**
  * App menu item chosen.
  * @param id - Menu item id.
  * @param app - The tinyjs app handle.
  */
 export function onMenu(id: string, app: TinyApp): void {
+  if (id === 'checkForUpdates') return void ready.then(() => checkForUpdate(app, true)).catch(() => {})
   command(app, id)
+}
+
+/**
+ * Notification clicked; the update one opens the Releases page.
+ * @param id - Notification id.
+ * @param app - The tinyjs app handle.
+ */
+export function onNotificationClick(id: string, app: TinyApp): void {
+  if (id === UPDATE_NOTIFICATION) app.shell.open(RELEASES_URL).catch(() => {})
 }
 
 /**

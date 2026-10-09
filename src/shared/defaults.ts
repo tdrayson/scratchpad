@@ -16,5 +16,6 @@ export const DEFAULT_SETTINGS: Settings = {
   dockBadge: true,
   archiveDays: 30,
   exportArchived: true,
+  checkUpdates: false,
   shortcuts: {},
 }
