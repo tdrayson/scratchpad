@@ -31,7 +31,8 @@ export interface Settings {
   spellCheck: boolean
   staleDays: number
   keepDays: number
-  reminder: { enabled: boolean; time: number }
+  /** Review reminder: `day` is a weekday (0 = Sunday) or null for every day; `time` is minutes after midnight. */
+  reminder: { enabled: boolean; day: number | null; time: number }
   dockBadge: boolean
   archiveDays: number
   shortcuts: Record<string, string>

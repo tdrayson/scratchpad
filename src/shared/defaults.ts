@@ -13,7 +13,7 @@ export const DEFAULT_SETTINGS: Settings = {
   spellCheck: true,
   staleDays: 7,
   keepDays: 7,
-  reminder: { enabled: false, time: 9 * 60 },
+  reminder: { enabled: true, day: 1, time: 9 * 60 },
   dockBadge: true,
   archiveDays: 30,
   shortcuts: {},

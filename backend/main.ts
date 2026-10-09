@@ -50,7 +50,8 @@ function sweep(app: TinyApp): void {
 
   const today = String(startOfDay(now))
   const minute = Math.floor((now - startOfDay(now)) / 60_000)
-  if (s.reminder.enabled && stale && minute >= s.reminder.time && settings.meta('reminded') !== today) {
+  const due = s.reminder.day === null || new Date(now).getDay() === s.reminder.day
+  if (s.reminder.enabled && due && stale && minute >= s.reminder.time && settings.meta('reminded') !== today) {
     settings.setMeta('reminded', today)
     app.notify({
       title: 'Notes to review',
