@@ -24,6 +24,9 @@ const emit = defineEmits<{
 
 const { groups, queue, archived, currentId, open } = useNotes()
 const { view, sidebarOpen } = useView()
+// Stay visible while open so the item doesn't vanish once the last note is handled.
+const showReview = computed(() => queue.value.length > 0 || view.value === 'review')
+const showArchive = computed(() => archived.value.length > 0 || view.value === 'archive')
 const { now } = useClock()
 
 const sections = computed(() => sidebarSections(groups.value))
@@ -51,9 +54,9 @@ const selectedId = computed(() => (view.value === 'editor' ? currentId.value : n
       <SearchField @activate="emit('search')" />
     </div>
     <NoteList :sections="sections" :selected-id="selectedId" :now="now" @open="open" />
-    <div class="flex shrink-0 flex-col gap-0.5 border-t border-border p-2">
-      <NavItem :icon="Hourglass" label="Review" :count="queue.length" :stale="queue.length > 0" :active="view === 'review'" @click="view = 'review'" />
-      <NavItem :icon="Archive" label="Archive" :count="archived.length" :active="view === 'archive'" @click="view = 'archive'" />
+    <div v-if="showReview || showArchive" class="flex shrink-0 flex-col gap-0.5 border-t border-border p-2">
+      <NavItem v-if="showReview" :icon="Hourglass" label="Review" :count="queue.length" :stale="queue.length > 0" :active="view === 'review'" @click="view = 'review'" />
+      <NavItem v-if="showArchive" :icon="Archive" label="Archive" :count="archived.length" :active="view === 'archive'" @click="view = 'archive'" />
     </div>
   </aside>
 </template>
