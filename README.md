@@ -9,6 +9,17 @@ A small macOS app for quick, throwaway notes — the home for everything you'd o
 
 Notes age out on their own. Anything you haven't touched in a week starts going stale, a quick review lets you archive or keep it, and the archive clears itself after 30 days. Nothing piles up, and nothing is lost by accident.
 
+<img src=".github/screenshots/write.png" alt="Write: type / for headings, checklists and code">
+
+<p>
+  <img src=".github/screenshots/search.png" width="49%" alt="Search: find anything with ⌘K">
+  <img src=".github/screenshots/review.png" width="49%" alt="Review: old notes come back around">
+</p>
+<p>
+  <img src=".github/screenshots/archive.png" width="49%" alt="Archive: everything stays recoverable for 30 days">
+  <img src=".github/screenshots/sunset.png" width="49%" alt="Sunset theme: light by day, dark by night">
+</p>
+
 ## Download
 
 Grab the latest `Scratchpad-<version>-macos.zip` from [Releases](../../releases), unzip it and drag **Scratchpad** into Applications. It runs natively on Apple Silicon and Intel.
