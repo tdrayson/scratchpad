@@ -9,7 +9,7 @@ import { SettingsStore } from './lib/settings'
 import { exportZip, readImport } from './lib/transfer'
 import { fetchUpdate } from './lib/updates'
 import { planImport } from '../src/shared/transfer'
-import { RELEASES_URL, type UpdateStatus } from '../src/shared/updates'
+import { RELEASES_URL } from '../src/shared/updates'
 
 const SWEEP_MS = 60_000
 const UPDATE_NOTIFICATION = 'update'
@@ -65,35 +65,23 @@ function sweep(app: TinyApp): void {
 
   if (s.checkUpdates && settings.meta('updateChecked') !== today) {
     settings.setMeta('updateChecked', today)
-    checkForUpdate(app, false).catch(() => {})
+    notifyUpdate(app).catch(() => {})
   }
 }
 
 /**
- * Checks GitHub for a newer release and sends a notification that opens the Releases page.
+ * Background daily check: notifies once per new version; the notification opens the Releases page.
  * @param app - The tinyjs app handle.
- * @param manual - True when the user asked: always reports, even when up to date or offline.
- * @return The running and latest versions.
  */
-async function checkForUpdate(app: TinyApp, manual: boolean): Promise<UpdateStatus> {
-  let status: UpdateStatus
-  try {
-    status = await fetchUpdate(app.info.version)
-  } catch (e) {
-    if (manual) app.notify({ title: "Couldn't check for updates", body: 'Check your connection and try again.' })
-    throw e
-  }
-  if (status.available && (manual || settings.meta('updateNotified') !== status.latest)) {
-    settings.setMeta('updateNotified', status.latest)
-    app.notify({
-      id: UPDATE_NOTIFICATION,
-      title: `Scratchpad ${status.latest} is available`,
-      body: `You have ${status.current}. Click to open the download page.`,
-    })
-  } else if (manual && !status.available) {
-    app.notify({ title: "You're up to date", body: `Scratchpad ${status.current} is the latest version.` })
-  }
-  return status
+async function notifyUpdate(app: TinyApp): Promise<void> {
+  const status = await fetchUpdate(app.info.version)
+  if (!status.available || settings.meta('updateNotified') === status.latest) return
+  settings.setMeta('updateNotified', status.latest)
+  app.notify({
+    id: UPDATE_NOTIFICATION,
+    title: `Scratchpad ${status.latest} is available`,
+    body: `You have ${status.current}. Click to open the download page.`,
+  })
 }
 
 /**
@@ -308,7 +296,6 @@ export function onHotkey(id: string, app: TinyApp): void {
  * @param app - The tinyjs app handle.
  */
 export function onMenu(id: string, app: TinyApp): void {
-  if (id === 'checkForUpdates') return void ready.then(() => checkForUpdate(app, true)).catch(() => {})
   command(app, id)
 }
 

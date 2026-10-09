@@ -7,6 +7,7 @@ import { on } from '@/lib/api'
 import { openSettings } from '@/lib/windows'
 import { eventInitFor, NEW_NOTE_WITH_TEXT } from '@/lib/palette/palette'
 import { routesToToast } from '@/lib/shell/undo'
+import { checkForUpdates } from '@/lib/shell/updates'
 import { comboFromEvent } from '@/shared/shortcuts'
 
 type EditorHandle = { focus: () => void; flush?: () => void | Promise<void> }
@@ -73,6 +74,7 @@ export function useAppCommands(editor: Ref<EditorHandle | null>) {
     review: () => show('review'),
     archive: () => show('archive'),
     settings: () => openSettings(),
+    checkForUpdates,
   }
 
   useShortcuts(handlers)
