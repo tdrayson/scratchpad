@@ -43,6 +43,8 @@ xattr -dr com.apple.quarantine /Applications/Scratchpad.app
 
 If you'd rather not take a stranger's app on trust (fair), [build it yourself](#contributing).
 
+**Updating:** there's no auto-update (see [Local only](#local-only)), so grab the latest zip from Releases and replace the app in Applications. Your notes live elsewhere and stay put; you'll just need to do the Open Anyway dance again.
+
 ## Local only
 
 Your notes stay on your Mac. That's not a setting; it's the only way it works.
