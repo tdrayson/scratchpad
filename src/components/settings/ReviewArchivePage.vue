@@ -126,7 +126,7 @@ onBeforeUnmount(() => off?.())
         <Select v-model="archiveDays" :options="ARCHIVE_DAYS" label="Delete archived notes after" />
       </SettingsRow>
       <SettingsRow title="Empty archive" :description="emptyDescription">
-        <Button variant="strong" class="text-stale!" :disabled="!archived" @click="emptyArchive">Empty archive…</Button>
+        <Button variant="danger" :disabled="!archived" @click="emptyArchive">Empty archive…</Button>
       </SettingsRow>
     </SettingsGroup>
   </div>

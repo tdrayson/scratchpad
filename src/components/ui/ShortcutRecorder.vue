@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { X } from '@lucide/vue'
 import { computed, onBeforeUnmount, ref } from 'vue'
 import { pauseShortcuts } from '@/composables/useShortcuts'
 import { useSettings } from '@/composables/useSettings'
@@ -11,11 +12,13 @@ const props = defineProps<{
   id: string
   /** Accessible name, e.g. the shortcut's label. */
   label?: string
+  /** Shows an x inside the box that clears the shortcut. */
+  clearable?: boolean
 }>()
 
 const combo = defineModel<string>({ default: '' })
 
-const { shortcuts } = useSettings()
+const { settings, shortcuts } = useSettings()
 const recording = ref(false)
 const problem = ref<ComboProblem | null>(null)
 let resume: (() => void) | null = null
@@ -59,7 +62,8 @@ function onKey(e: KeyboardEvent): void {
     combo.value = ''
     return stop()
   }
-  problem.value = validateCombo(props.id, next, shortcuts.value)
+  const { quickCapture: _q, ...others } = shortcuts.value
+  problem.value = validateCombo(props.id, next, settings.value.quickCapture ? shortcuts.value : others)
   if (problem.value) return
   combo.value = next
   stop()
@@ -83,6 +87,17 @@ onBeforeUnmount(stop)
       <span v-if="recording" class="px-1 text-[11px] text-tertiary">Press keys…</span>
       <Kbd v-else-if="combo" :combo="combo" split tone="strong" />
       <span v-else class="px-1 text-[11px] text-tertiary">None</span>
+      <span
+        v-if="clearable && combo && !recording"
+        role="button"
+        tabindex="-1"
+        aria-label="Clear shortcut"
+        class="flex size-4 items-center justify-center rounded text-tertiary hover:text-primary"
+        @mousedown.prevent
+        @click.stop="combo = ''"
+      >
+        <X :size="11" aria-hidden="true" />
+      </span>
     </button>
   </span>
 </template>

@@ -5,8 +5,8 @@ import Kbd from './Kbd.vue'
 
 const props = withDefaults(
   defineProps<{
-    /** default: outlined, secondary text · strong: stronger outline, primary text · primary: filled light · filled: popover-selected fill (toast Undo). */
-    variant?: 'default' | 'strong' | 'primary' | 'filled'
+    /** default: outlined, secondary text · strong: stronger outline, primary text · primary: filled light · filled: popover-selected fill (toast Undo) · danger: strong outline, stale text. */
+    variant?: 'default' | 'strong' | 'primary' | 'filled' | 'danger'
     /** sm: 28px toolbar button · lg: 38px action button (Review). */
     size?: 'sm' | 'lg'
     /** Leading Lucide icon. */
@@ -33,6 +33,7 @@ const classes = computed(() => {
     strong: 'inset-ring inset-ring-border-strong text-primary hover:bg-surface-hover',
     primary: 'bg-primary text-bg hover:opacity-90',
     filled: 'bg-popover-selected text-primary font-semibold hover:bg-border-strong',
+    danger: 'inset-ring inset-ring-border-strong text-stale hover:bg-surface-hover',
   }[props.variant]
   return [size, variant]
 })

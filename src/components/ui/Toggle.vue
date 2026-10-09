@@ -22,6 +22,6 @@ const on = defineModel<boolean>({ default: false })
     :class="[FOCUS_RING, on ? 'bg-primary' : 'bg-border-strong']"
     @click="on = !on"
   >
-    <span class="size-4 rounded-full bg-bg transition-transform" :class="on ? 'translate-x-3.5' : 'translate-x-0'" />
+    <span class="size-4 rounded-full transition-transform" :class="on ? 'translate-x-3.5 bg-bg' : 'translate-x-0 bg-secondary'" />
   </button>
 </template>

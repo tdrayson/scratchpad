@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { X } from '@lucide/vue'
 import { ref } from 'vue'
 import { call } from '@/lib/api'
 import type { ThemeMode } from '@/shared/types'
@@ -9,7 +8,6 @@ import SettingsGroup from '@/components/ui/SettingsGroup.vue'
 import SettingsRow from '@/components/ui/SettingsRow.vue'
 import ShortcutRecorder from '@/components/ui/ShortcutRecorder.vue'
 import Toggle from '@/components/ui/Toggle.vue'
-import { FOCUS_RING } from '@/lib/ui/focus'
 import type { Option } from '@/lib/ui/types'
 import SunsetSchedule from './SunsetSchedule.vue'
 import { useSetting, useShortcutEditor } from '@/lib/settings/useSettingsEditor'
@@ -71,18 +69,9 @@ async function exportAll(): Promise<void> {
           id="quickCapture"
           :model-value="comboFor('quickCapture')"
           label="New note from anywhere"
+          clearable
           @update:model-value="setCombo('quickCapture', $event)"
         />
-        <button
-          v-if="comboFor('quickCapture')"
-          type="button"
-          aria-label="Turn off quick capture"
-          class="flex size-5 items-center justify-center rounded text-tertiary hover:text-primary"
-          :class="FOCUS_RING"
-          @click="setCombo('quickCapture', '')"
-        >
-          <X :size="12" aria-hidden="true" />
-        </button>
       </SettingsRow>
       <SettingsRow title="Show in menu bar">
         <Toggle v-model="menuBarIcon" label="Show in menu bar" />
