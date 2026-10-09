@@ -17,9 +17,9 @@ Notes age out on their own. Anything you haven't touched in a week starts going 
   <img src=".github/screenshots/review.png" width="48%" alt="Review: old notes come back around">
 </p>
 <p align="center">
-  <img src=".github/screenshots/archive.png" width="48%" alt="Archive: everything stays recoverable for 30 days">
-  &nbsp;&nbsp;
   <img src=".github/screenshots/sunset.png" width="48%" alt="Sunset theme: light by day, dark by night">
+  &nbsp;&nbsp;
+  <img src=".github/screenshots/archive.png" width="48%" alt="Archive: everything stays recoverable for 30 days">
 </p>
 
 ## Download
