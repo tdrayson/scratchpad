@@ -10,11 +10,11 @@ const ids = (q: string) => filterBlocks(BLOCKS, q).map((b) => b.id)
 
 describe('filterBlocks', () => {
   it('lists every block in menu order for an empty query', () => {
-    expect(ids('')).toEqual(['text', 'h1', 'h2', 'bullet', 'numbered', 'checklist', 'quote', 'code', 'divider'])
+    expect(ids('')).toEqual(['text', 'h2', 'h3', 'bullet', 'numbered', 'checklist', 'quote', 'code', 'divider'])
   })
 
   it('matches title prefixes first, case-insensitively', () => {
-    expect(ids('HEAD')).toEqual(['h1', 'h2'])
+    expect(ids('HEAD')).toEqual(['h2', 'h3'])
     expect(ids('c')).toEqual(['checklist', 'code', 'quote'])
   })
 

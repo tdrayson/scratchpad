@@ -2,7 +2,7 @@ import { Extension } from '@tiptap/vue-3'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 
 /**
- * Keeps the first block an H1 title, refuses Enter on an empty title so every note gets one,
+ * Keeps the first block the note's only H1 (body H1s become H2), refuses Enter on an empty title,
  * and scopes ⌘A to the title or the body, whichever holds the caret.
  * @return The TipTap extension.
  */
@@ -40,11 +40,17 @@ export const TitleGuard = Extension.create({
       new Plugin({
         key: new PluginKey('titleGuard'),
         appendTransaction: (_trs, _old, state) => {
-          const first = state.doc.firstChild
-          if (!first || (first.type.name === 'heading' && first.attrs.level === 1)) return null
           const heading = state.schema.nodes.heading
-          if (!first.isTextblock || !heading) return null
-          return state.tr.setNodeMarkup(0, heading, { level: 1 })
+          const first = state.doc.firstChild
+          if (!heading || !first) return null
+          const tr = state.tr
+          if (first.isTextblock && !(first.type === heading && first.attrs.level === 1)) {
+            tr.setNodeMarkup(0, heading, { level: 1 })
+          }
+          state.doc.descendants((node, pos) => {
+            if (pos > 0 && node.type === heading && node.attrs.level === 1) tr.setNodeMarkup(pos, heading, { level: 2 })
+          })
+          return tr.docChanged ? tr : null
         },
       }),
     ]

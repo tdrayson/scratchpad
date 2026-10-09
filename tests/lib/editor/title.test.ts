@@ -66,6 +66,14 @@ describe('title guard', () => {
     expect(e.state.doc.textBetween(from, to)).toBe('Groceries')
   })
 
+  it('keeps the title as the only H1, demoting body H1s to H2', () => {
+    const e = make('<h1>Title</h1><h1>Section</h1><h2>Other</h2>')
+    e.commands.insertContent('x')
+    const levels: number[] = []
+    e.state.doc.forEach((n) => n.type.name === 'heading' && levels.push(n.attrs.level))
+    expect(levels).toEqual([1, 2, 2])
+  })
+
   it('turns a non-heading first block into the H1 title', () => {
     const e = make('<p>Plain first line</p><p>Body</p>')
     e.commands.insertContent('x')
