@@ -2,11 +2,13 @@ import { Extension } from '@tiptap/vue-3'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 
 /**
- * Keeps the first block an H1 title, and refuses Enter on an empty title so every note gets one.
+ * Keeps the first block an H1 title, refuses Enter on an empty title so every note gets one,
+ * and scopes ⌘A to the title or the body, whichever holds the caret.
  * @return The TipTap extension.
  */
 export const TitleGuard = Extension.create({
   name: 'titleGuard',
+  priority: 1000,
 
   addKeyboardShortcuts() {
     /**
@@ -17,7 +19,20 @@ export const TitleGuard = Extension.create({
       const { $from } = this.editor.state.selection
       return $from.depth > 0 && $from.index(0) === 0 && $from.parent.content.size === 0
     }
-    return { Enter: block, 'Shift-Enter': block, 'Mod-Enter': block }
+    /**
+     * Selects the title's text when the caret is in it, otherwise everything after the title.
+     * @return True, so the editor's own select-all never runs.
+     */
+    const selectAll = (): boolean => {
+      const { state } = this.editor
+      const title = state.doc.firstChild
+      if (!title) return false
+      const inTitle = state.selection.$from.index(0) === 0
+      const from = inTitle ? 1 : title.nodeSize
+      const to = inTitle ? title.nodeSize - 1 : state.doc.content.size
+      return this.editor.commands.setTextSelection({ from, to: Math.max(from, to) })
+    }
+    return { Enter: block, 'Shift-Enter': block, 'Mod-Enter': block, 'Mod-a': selectAll }
   },
 
   addProseMirrorPlugins() {

@@ -27,6 +27,14 @@ function pressEnter(e: Editor): boolean {
   return e.view.someProp('handleKeyDown', (f) => f(e.view, event)) ?? false
 }
 
+/**
+ * Presses ⌘A (Ctrl+A here: happy-dom doesn't report a Mac platform).
+ * @param e - The editor.
+ */
+function selectAll(e: Editor): void {
+  e.view.someProp('handleKeyDown', (f) => f(e.view, new KeyboardEvent('keydown', { key: 'a', ctrlKey: true })))
+}
+
 describe('title guard', () => {
   it('blocks Enter on an empty title', () => {
     const e = make()
@@ -41,6 +49,21 @@ describe('title guard', () => {
     const before = e.state.doc.childCount
     pressEnter(e)
     expect(e.state.doc.childCount).toBe(before + 1)
+  })
+
+  it('scopes select-all to the body when the caret is in the body', () => {
+    const e = make('<h1>Groceries</h1><p>Milk</p><p>Eggs</p>')
+    e.commands.setTextSelection(e.state.doc.content.size - 1)
+    selectAll(e)
+    const { from, to } = e.state.selection
+    expect(e.state.doc.textBetween(from, to, '\n')).toBe('Milk\nEggs')
+  })
+
+  it('scopes select-all to the title when the caret is in it', () => {
+    const e = make('<h1>Groceries</h1><p>Milk</p>')
+    selectAll(e)
+    const { from, to } = e.state.selection
+    expect(e.state.doc.textBetween(from, to)).toBe('Groceries')
   })
 
   it('turns a non-heading first block into the H1 title', () => {
