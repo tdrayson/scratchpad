@@ -28,8 +28,8 @@ export function sunTimes(date: number, coords: Coords | null): { sunrise: number
   if (!coords) return FALLBACK
   const day = startOfDay(date)
   const t = SunCalc.getTimes(new Date(day + 12 * 60 * MINUTE), coords.lat, coords.lng)
-  const rise = t.sunrise.getTime()
-  const set = t.sunset.getTime()
+  const rise = t.sunrise?.getTime() ?? NaN
+  const set = t.sunset?.getTime() ?? NaN
   if (Number.isNaN(rise) || Number.isNaN(set)) return FALLBACK
   return { sunrise: toMinutes(rise, day), sunset: toMinutes(set, day) }
 }

@@ -12,7 +12,8 @@ export async function openSettings(): Promise<void> {
     size: '760x720',
     minSize: '640x480',
     chrome: { frame: false, windowControls: ['close', 'minimize'], windowControlsPos: { x: 16, y: 20 } },
-  })
+    // minSize and windowControlsPos are supported by the launcher but missing from tiny.d.ts.
+  } as TinyOpenWindowOptions)
 }
 
 /**

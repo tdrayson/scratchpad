@@ -9,7 +9,7 @@ type Result<K extends keyof Api> = Awaited<ReturnType<Api[K]>>
  * @param params - The method's params.
  * @return The method's result.
  */
-export function call<K extends keyof Api>(method: K, ...params: Params<K> extends undefined ? [] : [Params<K>]): Promise<Result<K>> {
+export function call<K extends keyof Api>(method: K, ...params: undefined extends Params<K> ? [Params<K>?] : [Params<K>]): Promise<Result<K>> {
   return tiny.api.call(method, params[0] ?? {}) as Promise<Result<K>>
 }
 
