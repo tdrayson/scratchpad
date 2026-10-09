@@ -15,7 +15,7 @@ import { installMenu } from '@/lib/windows'
 import Toast from '@/components/ui/Toast.vue'
 
 const { view, sidebarOpen, paletteOpen, toast } = useView()
-const editor = ref<{ focus: () => void } | null>(null)
+const editor = ref<{ focus: () => void; flush?: () => void | Promise<void> } | null>(null)
 const { run, createAndFocus } = useAppCommands(editor)
 
 useTheme()
