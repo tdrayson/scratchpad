@@ -20,7 +20,6 @@ const TEXT_SIZES: Option<number>[] = Array.from({ length: 8 }, (_, i) => ({ valu
 
 const theme = useSetting('theme')
 const textSize = useSetting('textSize')
-const menuBarIcon = useSetting('menuBarIcon')
 const launchAtLogin = useSetting('launchAtLogin')
 const markdownShortcuts = useSetting('markdownShortcuts')
 const spellCheck = useSetting('spellCheck')
@@ -51,9 +50,6 @@ const { comboFor, setCombo } = useShortcutEditor()
           clearable
           @update:model-value="setCombo('quickCapture', $event)"
         />
-      </SettingsRow>
-      <SettingsRow title="Show in menu bar">
-        <Toggle v-model="menuBarIcon" label="Show in menu bar" />
       </SettingsRow>
       <SettingsRow title="Launch at login">
         <Toggle v-model="launchAtLogin" label="Launch at login" />

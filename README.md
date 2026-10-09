@@ -85,7 +85,7 @@ All the timings can be changed in Settings.
 
 Open with ⌘,.
 
-- **General:** theme, text size, quick capture, menu bar icon, launch at login, Markdown shortcuts, spell check.
+- **General:** theme, text size, quick capture, launch at login, Markdown shortcuts, spell check.
 - **Review & Archive:** stale after, default keep length, reminder, Dock badge, archive length.
 - **Shortcuts:** remap anything.
 - **Data:** export and import.

@@ -25,7 +25,6 @@ export interface Settings {
   location: Location | null
   textSize: number
   quickCapture: boolean
-  menuBarIcon: boolean
   launchAtLogin: boolean
   markdownShortcuts: boolean
   spellCheck: boolean

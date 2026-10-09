@@ -62,7 +62,7 @@ function sweep(app: TinyApp): void {
 }
 
 /**
- * Applies the OS-level settings: quick-capture hotkey, menu bar icon and launch at login.
+ * Applies the OS-level settings: quick-capture hotkey and launch at login.
  * @param app - The tinyjs app handle.
  * @param s - The current settings.
  */
@@ -70,22 +70,6 @@ function applySystem(app: TinyApp, s: Settings): void {
   app.hotkey.unregister('quickCapture')
   const combo = resolveShortcuts(s.shortcuts).quickCapture
   if (s.quickCapture && combo) app.hotkey.register('quickCapture', combo)
-
-  if (s.menuBarIcon) {
-    app.tray.set({
-      icon: 'sf:note.text',
-      tooltip: 'Scratchpad',
-      menu: [
-        { id: 'new', label: 'New note' },
-        { id: 'review', label: 'Review' },
-        { separator: true },
-        { id: 'open', label: 'Open Scratchpad' },
-        { id: 'quit', label: 'Quit Scratchpad' },
-      ],
-    })
-  } else {
-    app.tray.remove()
-  }
 
   app.launchAtLogin.set(s.launchAtLogin).catch(() => {})
 }
@@ -277,17 +261,6 @@ export function onHotkey(id: string, app: TinyApp): void {
   if (id === 'quickCapture') command(app, 'quickCapture')
 }
 
-/**
- * Menu bar icon menu item chosen.
- * @param id - Menu item id, or null for a bare icon click.
- * @param app - The tinyjs app handle.
- */
-export function onTray(id: string | null, app: TinyApp): void {
-  if (id === 'new') command(app, 'newNote')
-  else if (id === 'review') command(app, 'review')
-  else if (id === 'quit') app.quit()
-  else app.show()
-}
 
 /**
  * App menu item chosen.

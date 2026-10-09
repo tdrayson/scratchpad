@@ -7,7 +7,6 @@ export const DEFAULT_SETTINGS: Settings = {
   location: null,
   textSize: 15,
   quickCapture: true,
-  menuBarIcon: true,
   launchAtLogin: false,
   markdownShortcuts: true,
   spellCheck: true,
