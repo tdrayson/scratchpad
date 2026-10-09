@@ -62,8 +62,6 @@ The only way a note leaves your Mac is if you copy or export it.
 
 ### How notes age out
 
-Every note goes through the same stages, so old notes don't quietly pile up:
-
 1. **Active.** Notes you've edited recently, grouped in the sidebar under Today and This week.
 2. **Going stale.** A note you haven't edited for 7 days drops to Going stale at the bottom of the sidebar, its age in orange.
 3. **Review.** Review (⌘⇧R) walks through stale notes one at a time. **E** archives it, **K** keeps it (it comes back after 1 day to 1 month, or a date you pick), **↵** opens it.
