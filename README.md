@@ -9,6 +9,18 @@ A small macOS app for quick, throwaway notes — the home for everything you'd o
 
 Notes age out on their own. Anything you haven't touched in a week starts going stale, a quick review lets you archive or keep it, and the archive clears itself after 30 days. Nothing piles up, and nothing is lost by accident.
 
+## Features
+
+- **One rich editor.** Type `/` for blocks (headings, lists, checklists, quotes, code, dividers), or use Markdown shortcuts as you write. Every note starts with a title; notes save as you type.
+- **Markdown out.** ⌘C copies Markdown alongside rich text; ⌘⇧C copies the whole note.
+- **Notes that age out.** Active → going stale after 7 days → Review → Archive → deleted after 30 days. Both lengths are configurable.
+- **Review.** Walk your stale notes one at a time: **E** archive, **K** keep for a while (1 day to 1 month, or a custom date), **↵** open.
+- **Search everything.** ⌘K finds notes, including archived ones, and runs actions.
+- **Capture from anywhere.** ⌥Space opens a new note from any app.
+- **Themes.** System, Light, Dark, or Sunset — light by day and dark by night, following your local sunrise and sunset.
+- **Yours to remap.** Every shortcut can be changed in Settings.
+- **Export.** Save every note as a Markdown file into a folder of your choice.
+
 <img src=".github/screenshots/write.png" alt="Write: type / for headings, checklists and code">
 
 <p align="center">
@@ -31,18 +43,6 @@ Scratchpad isn't notarised by Apple yet, so the first launch is blocked. Either 
 ```sh
 xattr -dr com.apple.quarantine /Applications/Scratchpad.app
 ```
-
-## Features
-
-- **One rich editor.** Type `/` for blocks (headings, lists, checklists, quotes, code, dividers), or use Markdown shortcuts as you write. Every note starts with a title; notes save as you type.
-- **Markdown out.** ⌘C copies Markdown alongside rich text; ⌘⇧C copies the whole note.
-- **Notes that age out.** Active → going stale after 7 days → Review → Archive → deleted after 30 days. Both lengths are configurable.
-- **Review.** Walk your stale notes one at a time: **E** archive, **K** keep for a while (1 day to 1 month, or a custom date), **↵** open.
-- **Search everything.** ⌘K finds notes, including archived ones, and runs actions.
-- **Capture from anywhere.** ⌥Space opens a new note from any app.
-- **Themes.** System, Light, Dark, or Sunset — light by day and dark by night, following your local sunrise and sunset.
-- **Yours to remap.** Every shortcut can be changed in Settings.
-- **Export.** Save every note as a Markdown file into a folder of your choice.
 
 ## Shortcuts
 
