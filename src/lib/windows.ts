@@ -17,7 +17,8 @@ export async function openSettings(): Promise<void> {
 }
 
 /**
- * Installs the macOS app menu: Settings… in the app menu, plus a Note menu mirroring the main shortcuts.
+ * Installs the macOS app menu with Settings… and the standard Edit menu.
+ * Other shortcuts stay out of the menu bar so user remaps in Settings apply.
  */
 export function installMenu(): void {
   tiny.menu.set([
