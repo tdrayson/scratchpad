@@ -8,8 +8,8 @@ import {
   keepOptions,
   reviewQueue,
   staleAt,
-} from '../lifecycle'
-import { DAY, HOUR } from '../time'
+} from '@/shared/lifecycle'
+import { DAY, HOUR } from '@/shared/time'
 
 const now = new Date(2026, 9, 9, 15, 0).getTime()
 const note = (ageDays: number, extra: Partial<{ keptUntil: number; archivedAt: number }> = {}) => ({

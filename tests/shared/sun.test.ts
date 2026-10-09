@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { edgeMinutes, inLight, isLightAt, sunTimes } from '../sun'
-import type { SunEdge } from '../types'
+import { edgeMinutes, inLight, isLightAt, sunTimes } from '@/shared/sun'
+import type { SunEdge } from '@/shared/types'
 
 const london = { lat: 51.5074, lng: -0.1278 }
 const fixed = (h: number): SunEdge => ({ anchor: 'fixed', time: h * 60, offset: 0 })

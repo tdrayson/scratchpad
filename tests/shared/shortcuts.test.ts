@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { comboFromEvent, formatCombo, glyphs, resolveShortcuts, validateCombo } from '../shortcuts'
+import { comboFromEvent, formatCombo, glyphs, resolveShortcuts, validateCombo } from '@/shared/shortcuts'
 
 const ev = (code: string, key: string, m: Partial<Record<'metaKey' | 'ctrlKey' | 'altKey' | 'shiftKey', boolean>> = {}) => ({
   code,

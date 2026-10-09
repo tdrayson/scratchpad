@@ -5,6 +5,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
+  resolve: { alias: { '@': resolve(__dirname, 'src') } },
   build: {
     rollupOptions: {
       input: { main: resolve(__dirname, 'index.html'), settings: resolve(__dirname, 'settings.html') },

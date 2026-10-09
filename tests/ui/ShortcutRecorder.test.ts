@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it } from 'vitest'
-import ShortcutRecorder from '../ShortcutRecorder.vue'
+import ShortcutRecorder from '@/ui/ShortcutRecorder.vue'
 
 /**
  * Dispatches a keydown on the window, as a real key press reaches the recorder.
