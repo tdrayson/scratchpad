@@ -114,7 +114,7 @@ export function useAppCommands(editor: Ref<EditorHandle | null>) {
   }
 
   /**
-   * ⌘W saves pending edits and hides the window; the app keeps running for quick capture.
+   * ⌘W saves pending edits and hides the app; ⌘Tab, the Dock or ⌥Space bring it back.
    * @param e - The keydown event.
    */
   async function onClose(e: KeyboardEvent): Promise<void> {
@@ -123,7 +123,8 @@ export function useAppCommands(editor: Ref<EditorHandle | null>) {
     e.stopPropagation()
     paletteOpen.value = false
     await editor.value?.flush?.()
-    await tiny.win.hide({ app: false })
+    // Hiding the app, not just the window: tinyjs has no reopen event to re-show a lone hidden window.
+    await tiny.win.hide()
   }
 
   let off: (() => void) | undefined

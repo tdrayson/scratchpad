@@ -10,7 +10,7 @@ const hide = vi.fn(async (_opts?: { app: boolean }) => {})
 const { useAppCommands } = await import('@/lib/shell/useAppCommands')
 
 describe('useAppCommands', () => {
-  it('⌘W saves pending edits, then hides the window, even from inside the editor', async () => {
+  it('⌘W saves pending edits, then hides the app, even from inside the editor', async () => {
     const order: string[] = []
     hide.mockImplementation(async () => void order.push('hide'))
     const flush = vi.fn(async () => void order.push('flush'))
@@ -26,7 +26,6 @@ describe('useAppCommands', () => {
     await flushPromises()
     expect(ev.defaultPrevented).toBe(true)
     expect(order).toEqual(['flush', 'hide'])
-    expect(hide).toHaveBeenCalledWith({ app: false })
     w.unmount()
   })
 })
