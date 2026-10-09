@@ -11,13 +11,15 @@ Notes age out on their own. Anything you haven't touched in a week starts going 
 
 <img src=".github/screenshots/write.png" alt="Write: type / for headings, checklists and code">
 
-<p>
-  <img src=".github/screenshots/search.png" width="49%" alt="Search: find anything with ⌘K">
-  <img src=".github/screenshots/review.png" width="49%" alt="Review: old notes come back around">
+<p align="center">
+  <img src=".github/screenshots/search.png" width="48%" alt="Search: find anything with ⌘K">
+  &nbsp;&nbsp;
+  <img src=".github/screenshots/review.png" width="48%" alt="Review: old notes come back around">
 </p>
-<p>
-  <img src=".github/screenshots/archive.png" width="49%" alt="Archive: everything stays recoverable for 30 days">
-  <img src=".github/screenshots/sunset.png" width="49%" alt="Sunset theme: light by day, dark by night">
+<p align="center">
+  <img src=".github/screenshots/archive.png" width="48%" alt="Archive: everything stays recoverable for 30 days">
+  &nbsp;&nbsp;
+  <img src=".github/screenshots/sunset.png" width="48%" alt="Sunset theme: light by day, dark by night">
 </p>
 
 ## Download
