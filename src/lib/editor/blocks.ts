@@ -27,8 +27,8 @@ export interface BlockDef {
 
 export const BLOCKS: BlockDef[] = [
   { id: 'text', title: 'Text', desc: 'Plain paragraph', icon: Type, keywords: ['paragraph', 'plain', 'p'], apply: (c) => c.setParagraph() },
-  { id: 'h2', title: 'Heading', desc: 'Section heading', hint: '##', icon: Heading2, keywords: ['h1', 'h2', '#'], apply: (c) => c.setHeading({ level: 2 }) },
-  { id: 'h3', title: 'Subheading', desc: 'Smaller heading', hint: '###', icon: Heading3, keywords: ['h3'], apply: (c) => c.setHeading({ level: 3 }) },
+  { id: 'h2', title: 'Heading 2', desc: 'Section heading', hint: '##', icon: Heading2, keywords: ['h1', 'h2', '#'], apply: (c) => c.setHeading({ level: 2 }) },
+  { id: 'h3', title: 'Heading 3', desc: 'Smaller heading', hint: '###', icon: Heading3, keywords: ['h3'], apply: (c) => c.setHeading({ level: 3 }) },
   { id: 'bullet', title: 'Bullet list', desc: 'Unordered list', hint: '-', icon: List, keywords: ['ul', 'unordered', 'bullets'], apply: (c) => c.toggleBulletList() },
   { id: 'numbered', title: 'Numbered list', desc: 'Ordered list', hint: '1.', icon: ListOrdered, keywords: ['ol', 'ordered', 'numbers'], apply: (c) => c.toggleOrderedList() },
   { id: 'checklist', title: 'Checklist', desc: 'To-do with checkboxes', hint: '[]', icon: ListChecks, keywords: ['todo', 'task', 'checkbox'], apply: (c) => c.toggleTaskList() },

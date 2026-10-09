@@ -53,7 +53,7 @@ watch(
       }"
       aria-hidden="true"
     >
-      Filter blocks…
+      Search blocks…
     </span>
     <div
       v-if="visible"
