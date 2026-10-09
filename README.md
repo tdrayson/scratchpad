@@ -11,16 +11,16 @@ A small macOS app for the notes you never meant to keep: a phone number for the 
 
 Scratchpad gives those notes somewhere to go, and then politely shows them the door. Anything you haven't touched in a week comes back for a quick review, you archive what's done, and the archive tidies itself up after 30 days. Nothing goes without fair warning.
 
-- **Local only.** Nothing leaves your Mac. No account, no sync, no tracking.
-- **Rich editor.** `/` for blocks, or plain Markdown shortcuts.
-- **Autosave.** No save button, no "Do you want to save?"
-- **Old notes tidy up.** Stale after a week, deleted 30 days after archiving.
-- **Review.** Archive, keep or open stale notes, one key each.
-- **⌘K search.** Every note, archived ones too, plus actions.
-- **Quick capture.** ⌥Space from any app.
-- **Markdown in and out.** Copy notes as Markdown, export everything as a zip, or import a pile of `.md` files.
-- **Sunset theme.** Light by day, dark by night.
-- **Remappable shortcuts.** All of them.
+- **Local only** — nothing leaves your Mac. No account, no sync, no tracking.
+- **Rich editor** — `/` for blocks, or plain Markdown shortcuts.
+- **Autosave** — no save button, no "Do you want to save?"
+- **Old notes tidy up** — stale after a week, deleted 30 days after archiving.
+- **Review** — archive, keep or open stale notes, one key each.
+- **⌘K search** — every note, archived ones too, plus actions.
+- **Quick capture** — ⌥Space from any app.
+- **Markdown in and out** — copy notes as Markdown, export everything as a zip, or import a pile of `.md` files.
+- **Sunset theme** — light by day, dark by night.
+- **Remappable shortcuts** — all of them.
 
 ![Write: type / for headings, checklists and code](.github/screenshots/write.png)
 
