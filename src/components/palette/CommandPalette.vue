@@ -158,7 +158,7 @@ onBeforeUnmount(() => returnFocus?.focus?.())
           :aria-activedescendant="selected ? optionId(selected) : undefined"
           placeholder="Search notes"
           spellcheck="false"
-          class="min-w-0 flex-1 bg-transparent text-[17px] text-primary caret-accent outline-none select-text placeholder:text-tertiary"
+          class="min-w-0 flex-1 bg-transparent text-[17px] text-primary caret-secondary outline-none select-text placeholder:text-tertiary"
           @keydown="onKey"
         />
         <Kbd>esc</Kbd>

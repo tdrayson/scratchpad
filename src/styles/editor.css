@@ -4,7 +4,7 @@
   font-size: var(--editor-size, 15px);
   line-height: 1.55;
   color: var(--text-primary);
-  caret-color: var(--accent);
+  caret-color: var(--text-secondary);
   outline: none;
   cursor: text;
   user-select: text;

@@ -56,7 +56,7 @@ defineExpose({ focus })
       type="search"
       :placeholder="placeholder"
       :aria-label="placeholder"
-      class="min-w-0 flex-1 bg-transparent text-primary caret-accent select-text outline-none placeholder:text-tertiary"
+      class="min-w-0 flex-1 bg-transparent text-primary caret-secondary select-text outline-none placeholder:text-tertiary"
       @keydown.esc="query ? (query = '') : ($event.target as HTMLInputElement).blur()"
     />
   </label>
