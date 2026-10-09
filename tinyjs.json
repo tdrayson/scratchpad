@@ -4,7 +4,7 @@
   "size": "1200x760",
   "minSize": "720x480",
   "id": "com.tdrayson.scratchpad",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "attribution": "by tdrayson",
   "contextMenu": false,
   "windowPlacement": true,

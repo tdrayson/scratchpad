@@ -1,3 +1,11 @@
+## [0.3.0] - 2026-10-09
+### Features
+- File → New Note (⌘⇧N) opens a note even when the window is hidden
+- ⌘W hides the app; ⌘Tab or the Dock bring it back
+### Fixes
+- Title placeholder says Untitled, matching the sidebar
+- `/` block menu no longer opens in the title
+
 ## [0.2.0] - 2026-10-09
 ### Features
 - Data settings tab: export all notes as a zip, import a zip, folder or Markdown files
