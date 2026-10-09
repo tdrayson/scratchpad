@@ -5,6 +5,8 @@
 
 # Scratchpad
 
+**[Installation](#installation)** · **[Documentation](#documentation)** · **[Contributing](#contributing)**
+
 A small macOS app for the notes you never meant to keep: a phone number for the next ten minutes, a shopping list, the snippet you're about to paste somewhere else. You know, the stuff currently living in eleven unsaved TextEdit windows, each one guarding its contents behind a "Do you want to save?" prompt.
 
 Scratchpad gives those notes somewhere to go, and then politely shows them the door. Anything you haven't touched in a week comes back for a quick review, you archive what's done, and the archive tidies itself up after 30 days. Nothing goes without fair warning.
@@ -20,8 +22,6 @@ Scratchpad gives those notes somewhere to go, and then politely shows them the d
 - **Sunset theme.** Light by day, dark after sunset, worked out on-device.
 - **Remappable shortcuts.** All of them.
 
-**[Install](#install)** · **[Local only](#local-only)** · **[How notes age out](#how-notes-age-out)** · **[Writing](#writing)** · **[Finding notes](#finding-notes)** · **[Settings](#settings)** · **[Shortcuts](#shortcuts)** · **[Your data](#your-data)** · **[Building from source](#building-from-source)**
-
 <img src=".github/screenshots/write.png" alt="Write: type / for headings, checklists and code">
 
 <p align="center">
@@ -35,7 +35,7 @@ Scratchpad gives those notes somewhere to go, and then politely shows them the d
   <img src=".github/screenshots/archive.png" width="48%" alt="Archive: everything stays recoverable for 30 days">
 </p>
 
-## Install
+## Installation
 
 Download `Scratchpad-<version>-macos.zip` from [Releases](../../releases), unzip it and move **Scratchpad** to Applications. It runs on Apple Silicon and Intel Macs.
 
@@ -45,7 +45,7 @@ The app isn't notarised by Apple, so macOS will refuse to open it the first time
 xattr -dr com.apple.quarantine /Applications/Scratchpad.app
 ```
 
-If you'd rather not take a stranger's app on trust (fair), [build it yourself](#building-from-source).
+If you'd rather not take a stranger's app on trust (fair), [build it yourself](#contributing).
 
 ## Local only
 
@@ -123,9 +123,9 @@ Everything is in one file:
 - **Export:** Settings → General → Export all notes writes one Markdown file per note into a folder you choose.
 - **Uninstall:** delete the app and that folder.
 
-## Building from source
+## Contributing
 
-Requires [tinyjs](https://github.com/tarwin/tinyjsapp) and pnpm.
+Issues and pull requests are welcome. To build it yourself you need [tinyjs](https://github.com/tarwin/tinyjsapp) and pnpm:
 
 ```sh
 pnpm install
