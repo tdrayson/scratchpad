@@ -1,4 +1,5 @@
 import type { Database } from 'tjs:sqlite'
+import { visibleText } from '../../src/shared/text'
 import type { Note, NotePatch, NoteSummary, SearchHit } from '../../src/shared/types'
 import { all, run } from './db'
 
@@ -12,10 +13,22 @@ type Row = Record<string, any>
  * @return The plain text.
  */
 function plainLine(line: string): string {
-  return line
-    .replace(/^\s{0,3}(#{1,6}\s+|[-*+]\s+(\[[ xX]\]\s+)?|\d+\.\s+|>\s?)/, '')
-    .replace(/[*_`~]/g, '')
-    .trim()
+  return visibleText(
+    line.replace(/^\s{0,3}(#{1,6}(\s+|$)|[-*+]\s+(\[[ xX]\]\s+)?|\d+\.\s+|>\s?)/, '').replace(/[*_`~\\]/g, ''),
+  )
+}
+
+/**
+ * The note's lines as plain text, skipping fences, rules and lines with nothing visible.
+ * @param markdown - The note's Markdown.
+ * @return Visible lines in order.
+ */
+function visibleLines(markdown: string): string[] {
+  return markdown
+    .split('\n')
+    .filter((l) => !/^\s*(```|---|\*\*\*)\s*$/.test(l))
+    .map(plainLine)
+    .filter(Boolean)
 }
 
 /**
@@ -24,8 +37,7 @@ function plainLine(line: string): string {
  * @return Plain-text title, empty for an empty note.
  */
 export function deriveTitle(markdown: string): string {
-  const first = markdown.split('\n').find((l) => l.trim()) ?? ''
-  return plainLine(first).slice(0, 200)
+  return (visibleLines(markdown)[0] ?? '').slice(0, 200)
 }
 
 /**
@@ -35,13 +47,14 @@ export function deriveTitle(markdown: string): string {
  */
 function summarise(row: Row): NoteSummary {
   const md: string = row.markdown ?? ''
-  const lines = md.split('\n').filter((l) => l.trim() && !/^\s*(```|---)/.test(l))
+  const lines = visibleLines(md)
+  const text = lines.join(' ')
   return {
     id: row.id,
     title: row.title,
     markdown: md,
-    preview: plainLine(lines[1] ?? '').slice(0, 160),
-    words: md.trim() ? md.trim().split(/\s+/).length : 0,
+    preview: (lines[1] ?? '').slice(0, 160),
+    words: text ? text.split(' ').length : 0,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     keptUntil: row.kept_until ?? null,
@@ -216,6 +229,6 @@ export class NoteStore {
       terms.join(' '),
       limit,
     )
-    return rows.map((r) => ({ note: summarise(r), snippet: String(r.snippet).replace(/\s+/g, ' ') }))
+    return rows.map((r) => ({ note: summarise(r), snippet: visibleText(String(r.snippet)) }))
   }
 }

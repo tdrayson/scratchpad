@@ -1,3 +1,4 @@
+import { visibleText } from '@/shared/text'
 import { daysBetween, HOUR, MINUTE } from '@/shared/time'
 
 /**
@@ -34,5 +35,5 @@ export function createdLabel(at: number, now: number): string {
  */
 export function wordCount(markdown: string): number {
   const text = markdown.replace(/^\s*(?:#{1,6}|>|[-*+]|\d+\.)(?=\s)/gm, '').replace(/\[[ xX]\]/g, '')
-  return text.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length
+  return visibleText(text).split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length
 }
