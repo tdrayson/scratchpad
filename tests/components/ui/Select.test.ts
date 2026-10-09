@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
-import Select from '@/ui/Select.vue'
+import Select from '@/components/ui/Select.vue'
 
 const options = [
   { value: 'sunrise', label: 'Sunrise' },

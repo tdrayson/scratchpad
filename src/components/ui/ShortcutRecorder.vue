@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from 'vue'
-import { pauseShortcuts } from '../composables/useShortcuts'
-import { useSettings } from '../composables/useSettings'
-import { SHORTCUTS, comboFromEvent, validateCombo, type ComboProblem } from '../shared/shortcuts'
-import { FOCUS_RING } from './focus'
+import { pauseShortcuts } from '@/composables/useShortcuts'
+import { useSettings } from '@/composables/useSettings'
+import { SHORTCUTS, comboFromEvent, validateCombo, type ComboProblem } from '@/shared/shortcuts'
+import { FOCUS_RING } from '@/lib/ui/focus'
 import Kbd from './Kbd.vue'
 
 const props = defineProps<{

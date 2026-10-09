@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type Component } from 'vue'
-import { useSettings } from '../composables/useSettings'
-import { FOCUS_RING } from './focus'
+import { useSettings } from '@/composables/useSettings'
+import { FOCUS_RING } from '@/lib/ui/focus'
 import Tooltip from './Tooltip.vue'
 
 defineOptions({ inheritAttrs: false })

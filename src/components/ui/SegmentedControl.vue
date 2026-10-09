@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T">
 import { computed, ref } from 'vue'
-import { FOCUS_RING } from './focus'
-import type { Option } from './types'
+import { FOCUS_RING } from '@/lib/ui/focus'
+import type { Option } from '@/lib/ui/types'
 
 const props = defineProps<{
   /** Segments, in display order. */

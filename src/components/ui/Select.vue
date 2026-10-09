@@ -1,11 +1,11 @@
 <script setup lang="ts" generic="T">
 import { ChevronsUpDown } from '@lucide/vue'
 import { computed, ref } from 'vue'
-import { FOCUS_RING } from './focus'
+import { FOCUS_RING } from '@/lib/ui/focus'
 import Menu from './Menu.vue'
 import MenuItem from './MenuItem.vue'
 import MenuSeparator from './MenuSeparator.vue'
-import type { Option } from './types'
+import type { Option } from '@/lib/ui/types'
 
 defineOptions({ inheritAttrs: false })
 

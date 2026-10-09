@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FOCUS_RING } from './focus'
+import { FOCUS_RING } from '@/lib/ui/focus'
 
 defineProps<{
   /** Accessible name when no visible label is associated. */

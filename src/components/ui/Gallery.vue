@@ -1,30 +1,28 @@
 <script setup lang="ts">
 import { Archive, ArrowUpRight, Copy, PanelLeft, SquarePen, Timer, Trash2 } from '@lucide/vue'
 import { ref } from 'vue'
-import {
-  AgeBadge,
-  Button,
-  IconButton,
-  Kbd,
-  Menu,
-  MenuItem,
-  MenuSeparator,
-  PageHeader,
-  PaneToolbar,
-  SearchField,
-  SectionLabel,
-  SegmentedControl,
-  Select,
-  SettingsGroup,
-  SettingsRow,
-  ShortcutHint,
-  ShortcutRecorder,
-  SplitButton,
-  StatusBar,
-  Toast,
-  Toggle,
-  Tooltip,
-} from '.'
+import AgeBadge from './AgeBadge.vue'
+import Button from './Button.vue'
+import IconButton from './IconButton.vue'
+import Kbd from './Kbd.vue'
+import Menu from './Menu.vue'
+import MenuItem from './MenuItem.vue'
+import MenuSeparator from './MenuSeparator.vue'
+import PageHeader from './PageHeader.vue'
+import PaneToolbar from './PaneToolbar.vue'
+import SearchField from './SearchField.vue'
+import SectionLabel from './SectionLabel.vue'
+import SegmentedControl from './SegmentedControl.vue'
+import Select from './Select.vue'
+import SettingsGroup from './SettingsGroup.vue'
+import SettingsRow from './SettingsRow.vue'
+import ShortcutHint from './ShortcutHint.vue'
+import ShortcutRecorder from './ShortcutRecorder.vue'
+import SplitButton from './SplitButton.vue'
+import StatusBar from './StatusBar.vue'
+import Toast from './Toast.vue'
+import Toggle from './Toggle.vue'
+import Tooltip from './Tooltip.vue'
 
 const theme = ref<'dark' | 'light'>((document.documentElement.dataset.theme as 'dark' | 'light') ?? 'dark')
 const themes = [

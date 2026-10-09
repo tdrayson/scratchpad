@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { formatCombo, glyphs } from '../shared/shortcuts'
+import { formatCombo, glyphs } from '@/shared/shortcuts'
 
 const props = defineProps<{
   /** Combo to show, e.g. 'cmd+k'. Omit to use the default slot as the keycap text. */

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Search } from '@lucide/vue'
 import { computed, ref } from 'vue'
-import { useSettings } from '../composables/useSettings'
-import { FOCUS_RING } from './focus'
+import { useSettings } from '@/composables/useSettings'
+import { FOCUS_RING } from '@/lib/ui/focus'
 import Kbd from './Kbd.vue'
 
 const props = withDefaults(

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, type Component } from 'vue'
-import { FOCUS_RING } from './focus'
+import { FOCUS_RING } from '@/lib/ui/focus'
 import Kbd from './Kbd.vue'
 
 const props = withDefaults(

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import Toggle from '@/ui/Toggle.vue'
+import Toggle from '@/components/ui/Toggle.vue'
 
 describe('Toggle', () => {
   it('flips v-model and reflects it as a switch', async () => {

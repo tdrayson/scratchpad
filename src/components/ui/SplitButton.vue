@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ChevronDown } from '@lucide/vue'
 import { ref, type Component } from 'vue'
-import { FOCUS_RING_INSET } from './focus'
+import { FOCUS_RING_INSET } from '@/lib/ui/focus'
 import Kbd from './Kbd.vue'
 
 defineProps<{

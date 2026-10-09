@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, ref } from 'vue'
-import { formatCombo } from '../shared/shortcuts'
+import { formatCombo } from '@/shared/shortcuts'
 
 type Placement = 'top' | 'bottom' | 'left' | 'right'
 
