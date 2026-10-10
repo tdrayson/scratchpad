@@ -1,3 +1,9 @@
+## [0.4.3] - 2026-10-10
+### Features
+- Images: paste a screenshot, drop files from Finder, or /image
+- Images are included in export and import
+- Pasted Markdown lists and headings become real blocks
+
 ## [0.4.2] - 2026-10-09
 ### Features
 - Check for Updates… opens an in-app dialog with Download Now
