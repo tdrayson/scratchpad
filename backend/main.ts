@@ -3,20 +3,25 @@ import { isPurgeable, isStale } from '../src/shared/lifecycle'
 import { resolveShortcuts } from '../src/shared/shortcuts'
 import { startOfDay } from '../src/shared/time'
 import type { NotePatch, Settings } from '../src/shared/types'
+import { fromBase64, toBase64 } from './lib/base64'
 import { openDb } from './lib/db'
+import { ImageStore } from './lib/images'
 import { NoteStore } from './lib/notes'
 import { SettingsStore } from './lib/settings'
 import { exportZip, readImport } from './lib/transfer'
 import { fetchUpdate } from './lib/updates'
-import { planImport } from '../src/shared/transfer'
+import { IMAGE_SCHEME, MAX_IMAGE_BYTES, rewriteImageLinks } from '../src/shared/images'
+import { planImport, type ImportNote } from '../src/shared/transfer'
 import { RELEASES_URL } from '../src/shared/updates'
 
 const SWEEP_MS = 60_000
+const DAY_MS = 86_400_000
 const UPDATE_NOTIFICATION = 'update'
 
 let db: Database
 let notes: NoteStore
 let settings: SettingsStore
+let images: ImageStore
 let ready: Promise<void>
 
 /**
@@ -27,6 +32,7 @@ async function boot(app: TinyApp): Promise<void> {
   db = await openDb(app.paths.data)
   notes = new NoteStore(db)
   settings = new SettingsStore(db)
+  images = new ImageStore(db)
 }
 
 /**
@@ -48,6 +54,7 @@ function sweep(app: TinyApp): void {
   const expired = all.filter((n) => isPurgeable(n, s.archiveDays, now))
   for (const n of expired) notes.remove(n.id)
   if (expired.length) changed(app)
+  images.purgeUnused(now - DAY_MS)
 
   const stale = all.filter((n) => isStale(n, s.staleDays, now)).length
   app.badge(s.dockBadge && stale ? String(stale) : '')
@@ -82,6 +89,19 @@ async function notifyUpdate(app: TinyApp): Promise<void> {
     title: `Scratchpad ${status.latest} is available`,
     body: `You have ${status.current}. Click to open the download page.`,
   })
+}
+
+/**
+ * Stores an imported note's images and points its links at them.
+ * @param noteId - Id the note will be created with.
+ * @param note - The planned note.
+ * @param now - Time in epoch ms.
+ * @return The note's Markdown with stored-image links.
+ */
+function storeImportedImages(noteId: string, note: ImportNote, now: number): string {
+  const ids = new Map<string, string>()
+  for (const [src, image] of Object.entries(note.images)) ids.set(src, images.add(noteId, image.mime, image.data, now))
+  return rewriteImageLinks(note.markdown, (src) => (ids.has(src) ? IMAGE_SCHEME + ids.get(src) : null))
 }
 
 /**
@@ -224,7 +244,7 @@ export const api = {
    */
   exportNotes: async (p: { dir: string }) => {
     await ready
-    return exportZip(p.dir, notes.list(), settings.get().exportArchived, Date.now())
+    return exportZip(p.dir, notes.list(), settings.get().exportArchived, Date.now(), (id) => images.get(id))
   },
   /**
    * @param p - Zips, folders or Markdown files to import.
@@ -236,7 +256,12 @@ export const api = {
     const files = await readImport(p.paths)
     const plan = planImport(files, notes.list().map((n) => n.markdown))
     const now = Date.now()
-    notes.insertAll(plan.notes.map((n) => ({ ...n, archivedAt: n.archived ? now : null })))
+    notes.insertAll(
+      plan.notes.map((n) => {
+        const id = crypto.randomUUID()
+        return { id, markdown: storeImportedImages(id, n, now), modifiedAt: n.modifiedAt, archivedAt: n.archived ? now : null }
+      }),
+    )
     if (plan.notes.length) {
       changed(app)
       sweep(app)
@@ -246,6 +271,30 @@ export const api = {
       archived: plan.notes.filter((n) => n.archived).length,
       skipped: plan.skipped,
     }
+  },
+  /**
+   * @param p - Note it's added to, MIME type and base64 bytes.
+   * @return The new image's id.
+   */
+  addImage: async (p: { noteId: string; mime: string; data: string }) => {
+    await ready
+    const bytes = fromBase64(p.data)
+    if (bytes.length > MAX_IMAGE_BYTES) throw new Error('Image too large')
+    return { id: images.add(p.noteId, p.mime, bytes, Date.now()) }
+  },
+  /**
+   * @param p - Note they're added to and absolute image file paths.
+   * @return Ids of the stored images, and how many files weren't images or were too large.
+   */
+  addImageFiles: async (p: { noteId: string; paths: string[] }) => (await ready, images.addFiles(p.noteId, p.paths, Date.now())),
+  /**
+   * @param p - Image id.
+   * @return The MIME type and base64 bytes, or null if it's gone.
+   */
+  getImage: async (p: { id: string }) => {
+    await ready
+    const image = images.get(p.id)
+    return image ? { mime: image.mime, data: toBase64(image.data) } : null
   },
   /**
    * @param _p - Unused.

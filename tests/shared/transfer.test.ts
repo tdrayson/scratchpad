@@ -66,6 +66,6 @@ describe('planImport', () => {
 
   it('marks files from an Archive folder as archived and keeps their dates', () => {
     const plan = planImport([file('E/Archive/Old.md', '# Old')], [])
-    expect(plan.notes).toEqual([{ markdown: '# Old', modifiedAt: 1000, archived: true }])
+    expect(plan.notes).toEqual([{ markdown: '# Old', modifiedAt: 1000, archived: true, images: {} }])
   })
 })

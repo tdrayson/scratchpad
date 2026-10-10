@@ -13,6 +13,13 @@ CREATE TABLE IF NOT EXISTS notes (
 );
 CREATE INDEX IF NOT EXISTS notes_updated ON notes(updated_at);
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS images (
+  id TEXT PRIMARY KEY,
+  note_id TEXT NOT NULL,
+  mime TEXT NOT NULL,
+  data BLOB NOT NULL,
+  created_at INTEGER NOT NULL
+);
 CREATE VIRTUAL TABLE IF NOT EXISTS notes_fts USING fts5(title, markdown, content='notes', content_rowid='rowid');
 CREATE TRIGGER IF NOT EXISTS notes_ai AFTER INSERT ON notes BEGIN
   INSERT INTO notes_fts(rowid, title, markdown) VALUES (new.rowid, new.title, new.markdown);

@@ -4,6 +4,7 @@ import { TaskList } from '@tiptap/extension-task-list'
 import { Placeholder } from '@tiptap/extensions'
 import { Markdown } from '@tiptap/markdown'
 import { StarterKit } from '@tiptap/starter-kit'
+import { ImageNode, type ImageOptions } from './image'
 import { SlashCommand, type SlashState } from './slash'
 import { TitleGuard } from './title'
 
@@ -11,13 +12,19 @@ import { TitleGuard } from './title'
  * The editor's extensions: rich blocks, nested checklists, a required H1 title, Markdown I/O and, optionally, the `/` menu.
  * @param slash - Slash-menu state to drive; omit for a headless editor (tests, conversion).
  * @param title - Enforce the H1 title rule; off for headless conversion.
+ * @param images - Image picker hook for the `/image` block.
  * @return Extensions for a TipTap editor.
  */
-export function editorExtensions(slash?: SlashState, title = Boolean(slash)): AnyExtension[] {
+export function editorExtensions(
+  slash?: SlashState,
+  title = Boolean(slash),
+  images: ImageOptions = {},
+): AnyExtension[] {
   const list: AnyExtension[] = [
     StarterKit.configure({ heading: { levels: [1, 2, 3] }, link: { openOnClick: false } }),
     TaskList,
     TaskItem.configure({ nested: true }),
+    ImageNode.configure(images),
     Placeholder.configure({
       placeholder: ({ editor, node, pos }) => {
         if (pos === 0 && node.type.name === 'heading') return 'Untitled'
@@ -43,4 +50,32 @@ export const EMPTY_DOC = { type: 'doc', content: [{ type: 'heading', attrs: { le
  */
 export function toMarkdown(editor: Editor, json: JSONContent = editor.getJSON()): string {
   return (editor.markdown?.serialize(json) ?? editor.getText()).trimEnd()
+}
+
+/**
+ * Parses Markdown into a document. The Markdown parser lifts a lone image out of its paragraph; images are inline
+ * here, so those are wrapped back into paragraphs.
+ * @param editor - Editor whose Markdown manager to use.
+ * @param markdown - Markdown to parse.
+ * @return The document.
+ */
+export function fromMarkdown(editor: Editor, markdown: string): JSONContent {
+  return wrapLooseImages(editor.markdown?.parse(markdown) ?? { type: 'doc', content: [] })
+}
+
+const TEXTBLOCKS = new Set(['paragraph', 'heading'])
+
+/**
+ * @param node - A parsed node.
+ * @return The node with any image outside a text block wrapped in a paragraph.
+ */
+function wrapLooseImages(node: JSONContent): JSONContent {
+  if (!node.content) return node
+  const loose = !TEXTBLOCKS.has(node.type ?? '')
+  return {
+    ...node,
+    content: node.content.map((c) =>
+      loose && c.type === 'image' ? { type: 'paragraph', content: [c] } : wrapLooseImages(c),
+    ),
+  }
 }

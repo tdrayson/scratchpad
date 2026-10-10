@@ -4,6 +4,12 @@ export const ARCHIVE_FOLDER = 'Archive'
 /** File extensions read as notes on import. */
 export const NOTE_EXTENSIONS = ['md', 'markdown', 'txt']
 
+/** An image a Markdown file links to, read alongside it. */
+export interface ImportImage {
+  mime: string
+  data: Uint8Array
+}
+
 /** A Markdown file found while importing. */
 export interface ImportFile {
   /** Path relative to the dropped folder or zip root, e.g. 'Export/Archive/Old.md'. */
@@ -11,6 +17,8 @@ export interface ImportFile {
   text: string
   /** Last modified, in epoch ms. */
   modifiedAt: number
+  /** Local images the text links to, keyed by the link target as written. */
+  images?: Record<string, ImportImage>
 }
 
 /** A note to create from an imported file. */
@@ -18,6 +26,7 @@ export interface ImportNote {
   markdown: string
   modifiedAt: number
   archived: boolean
+  images: Record<string, ImportImage>
 }
 
 /**
@@ -96,7 +105,7 @@ export function planImport(files: ImportFile[], existing: string[]): { notes: Im
       continue
     }
     seen.add(markdown)
-    notes.push({ markdown, modifiedAt: file.modifiedAt, archived: isArchivedPath(file.path) })
+    notes.push({ markdown, modifiedAt: file.modifiedAt, archived: isArchivedPath(file.path), images: file.images ?? {} })
   }
   return { notes, skipped }
 }

@@ -1,4 +1,5 @@
 import type { Database } from 'tjs:sqlite'
+import { stripImages } from '../../src/shared/images'
 import { visibleText } from '../../src/shared/text'
 import type { Note, NotePatch, NoteSummary, SearchHit } from '../../src/shared/types'
 import { all, run } from './db'
@@ -14,7 +15,7 @@ type Row = Record<string, any>
  */
 function plainLine(line: string): string {
   return visibleText(
-    line.replace(/^\s{0,3}(#{1,6}(\s+|$)|[-*+]\s+(\[[ xX]\]\s+)?|\d+\.\s+|>\s?)/, '').replace(/[*_`~\\]/g, ''),
+    stripImages(line).replace(/^\s{0,3}(#{1,6}(\s+|$)|[-*+]\s+(\[[ xX]\]\s+)?|\d+\.\s+|>\s?)/, '').replace(/[*_`~\\]/g, ''),
   )
 }
 
@@ -124,16 +125,16 @@ export class NoteStore {
 
   /**
    * Adds imported notes with their original dates, in one transaction.
-   * @param list - Each note's Markdown, last-edited time (also used as created) and archive time or null.
+   * @param list - Each note's id, Markdown, last-edited time (also used as created) and archive time or null.
    */
-  insertAll(list: { markdown: string; modifiedAt: number; archivedAt: number | null }[]): void {
+  insertAll(list: { id: string; markdown: string; modifiedAt: number; archivedAt: number | null }[]): void {
     run(this.db, 'BEGIN')
     try {
       for (const n of list) {
         run(
           this.db,
           'INSERT INTO notes (id, title, doc, markdown, created_at, updated_at, archived_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-          crypto.randomUUID(),
+          n.id,
           deriveTitle(n.markdown),
           '',
           n.markdown,

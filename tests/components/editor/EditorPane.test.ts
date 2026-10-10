@@ -7,7 +7,7 @@ const call = vi.fn(async (_method: string, _params?: unknown): Promise<unknown> 
 vi.mock('@/lib/api', () => ({ call: (m: string, p?: unknown) => call(m, p), on: () => () => {} }))
 
 const write = vi.fn()
-vi.stubGlobal('tiny', { clipboard: { write } })
+vi.stubGlobal('tiny', { clipboard: { write }, win: { onDrop: vi.fn() } })
 
 const { default: EditorPane } = await import('@/components/editor/EditorPane.vue')
 const { useNotes } = await import('@/composables/useNotes')

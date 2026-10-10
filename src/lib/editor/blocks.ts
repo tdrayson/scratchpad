@@ -3,6 +3,7 @@ import {
   Code,
   Heading2,
   Heading3,
+  Image,
   List,
   ListChecks,
   ListOrdered,
@@ -11,6 +12,7 @@ import {
   Type,
 } from '@lucide/vue'
 import type { Component } from 'vue'
+import { pickImage } from './image'
 
 export interface BlockDef {
   id: string
@@ -34,6 +36,7 @@ export const BLOCKS: BlockDef[] = [
   { id: 'checklist', title: 'Checklist', desc: 'To-do with checkboxes', hint: '[]', icon: ListChecks, keywords: ['todo', 'task', 'checkbox'], apply: (c) => c.toggleTaskList() },
   { id: 'quote', title: 'Quote', desc: 'Block quote', hint: '>', icon: Quote, keywords: ['blockquote', 'citation'], apply: (c) => c.toggleBlockquote() },
   { id: 'code', title: 'Code block', desc: 'Monospaced code', hint: '```', icon: Code, keywords: ['pre', 'snippet', 'mono'], apply: (c) => c.toggleCodeBlock() },
+  { id: 'image', title: 'Image', desc: 'Picture from your Mac', icon: Image, keywords: ['picture', 'photo', 'screenshot', 'img'], apply: (c) => c.command(({ editor }) => pickImage(editor)) },
   { id: 'divider', title: 'Divider', desc: 'Horizontal rule', hint: '---', icon: Minus, keywords: ['hr', 'rule', 'line', 'separator'], apply: (c) => c.setHorizontalRule() },
 ]
 

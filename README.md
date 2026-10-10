@@ -12,7 +12,7 @@ A small macOS app for the notes you never meant to keep: a phone number for the 
 Scratchpad gives those notes somewhere to go, and then politely shows them the door. Anything you haven't touched in a week comes back for a quick review, you archive what's done, and the archive tidies itself up after 30 days. Nothing goes without fair warning.
 
 - **Local only** — nothing leaves your Mac. No account, no sync, no tracking.
-- **Rich editor** — `/` for blocks, or plain Markdown shortcuts.
+- **Rich editor** — `/` for blocks, or plain Markdown shortcuts. Paste in screenshots and images.
 - **Autosave** — no save button, no "Do you want to save?"
 - **Old notes tidy up** — stale after a week, deleted 30 days after archiving.
 - **Review** — archive, keep or open stale notes, one key each.
@@ -49,7 +49,7 @@ If you'd rather not take a stranger's app on trust (fair), [build it yourself](#
 
 Your notes stay on your Mac. That's not a setting; it's the only way it works.
 
-- **One file.** Notes live in a SQLite file on your disk, and nowhere else.
+- **One file.** Notes and their images live in a SQLite file on your disk, and nowhere else.
 - **No network.** No account, sync, analytics or crash reports. It doesn't phone home; it doesn't have the number.
 - **Update checks are opt-in.** Off by default. Turn them on and it asks GitHub for the latest version number once a day. That's the whole conversation.
 - **No Location Services.** Sunset times are worked out on-device from your time zone, or a city you pick.
@@ -74,7 +74,9 @@ All the timings can be changed in Settings.
 ### Writing
 
 - **Title first.** Every note starts with a title; it's what the sidebar and search show.
-- **Blocks.** Type `/` for headings, lists, checklists, quotes, code and dividers.
+- **Blocks.** Type `/` for headings, lists, checklists, quotes, code, images and dividers.
+- **Images.** Paste a screenshot, drop a file from Finder, or `/image`. PNG, JPEG, GIF, WebP or HEIC, up to 10 MB each. Images from web pages aren't loaded, so nothing is fetched.
+- **Paste Markdown.** Text with `-` lists or `#` headings (from TextEdit, say) turns into the real thing.
 - **Markdown shortcuts.** `##`, `-`, `[]`, `>`, ````` and `---` as you type. Can be turned off.
 - **Autosave.** Notes save as you type.
 - **Copy as Markdown.** ⌘C copies Markdown with the rich text; ⌘⇧C copies the whole note.
@@ -133,8 +135,8 @@ Everything is in one file:
 ```
 
 - **Back up:** copy that file while Scratchpad is closed.
-- **Export:** Settings → Data → Export. Saves a zip with one `.md` file per note, archived notes in an `Archive` folder (optional).
-- **Import:** drop a zip, a folder or some `.md` files on Settings → Data. Each file becomes a note and keeps its date, anything in an `Archive` folder goes straight to the archive, and notes you already have are skipped. Handy for moving from another app, or another Mac.
+- **Export:** Settings → Data → Export. Saves a zip with one `.md` file per note, images in an `images` folder, archived notes in an `Archive` folder (optional).
+- **Import:** drop a zip, a folder or some `.md` files on Settings → Data. Each file becomes a note and keeps its date, images it links to come along, anything in an `Archive` folder goes straight to the archive, and notes you already have are skipped. Handy for moving from another app, or another Mac.
 - **Uninstall:** delete the app and that folder.
 
 
