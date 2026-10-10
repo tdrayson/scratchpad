@@ -209,3 +209,41 @@
   color: var(--text-tertiary);
   pointer-events: none;
 }
+
+.sp-image {
+  display: inline-block;
+  user-select: none;
+  -webkit-user-select: none;
+  max-width: 100%;
+  vertical-align: bottom;
+  border-radius: 8px;
+  line-height: 0;
+  cursor: default;
+}
+
+.sp-image img {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px var(--border);
+  /* Keeps macOS Live Text from selecting text inside screenshots; clicks select the image node instead. */
+  pointer-events: none;
+}
+
+.sp-image.is-selected {
+  outline: 2px solid var(--text-tertiary);
+  outline-offset: 2px;
+}
+
+.sp-image-missing {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-tertiary);
+  font-size: 0.85em;
+  line-height: 1.4;
+}
